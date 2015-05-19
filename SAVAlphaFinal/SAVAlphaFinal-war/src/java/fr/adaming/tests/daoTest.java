@@ -7,8 +7,12 @@ package fr.adaming.tests;
 
 import fr.adaming.dao.GarantiesFacade;
 import fr.adaming.dao.GarantiesFacadeLocal;
+import fr.adaming.dao.ProduitsFacade;
+import fr.adaming.dao.ProduitsFacadeLocal;
 import fr.adaming.models.Garanties;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -22,10 +26,10 @@ import javax.inject.Named;
 @SessionScoped
 public class daoTest implements Serializable {
 
-    private Garanties garantie;
+    private Collection<Garanties> garanties;
 
     @EJB
-    private GarantiesFacadeLocal garantiesTest;
+    private ProduitsFacadeLocal produitsTest;
 
     /**
      * Creates a new instance of daoTest
@@ -35,27 +39,28 @@ public class daoTest implements Serializable {
 
     public void appTest() {
         try {
-            Garanties tmp = garantiesTest.find(2);
-            setGarantie(tmp);
+            Collection<Garanties> tmp = produitsTest.findGarantiesByProduit(3);
+            setGaranties(tmp);
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
 
     }
-
-    public Garanties getGarantie() {
-        return garantie;
+    
+    public Collection<Garanties> getGaranties() {
+        return garanties;
     }
 
-    public void setGarantie(Garanties garantie) {
-        this.garantie = garantie;
+    public void setGaranties(Collection<Garanties> garanties) {
+        this.garanties = garanties;
     }
 
-    public GarantiesFacadeLocal getGarantiesTest() {
-        return garantiesTest;
+    public ProduitsFacadeLocal getProduitsTest() {
+        return produitsTest;
     }
 
-    public void setGarantiesTest(GarantiesFacade garantiesTest) {
-        this.garantiesTest = garantiesTest;
+    public void setProduitsTest(ProduitsFacadeLocal produitsTest) {
+        this.produitsTest = produitsTest;
     }
+
 }
