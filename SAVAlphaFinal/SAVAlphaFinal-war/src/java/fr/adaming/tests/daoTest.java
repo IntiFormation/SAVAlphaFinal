@@ -57,5 +57,5 @@ public class daoTest implements Serializable {
 
     public void setGarantiesTest(GarantiesFacade garantiesTest) {
         this.garantiesTest = garantiesTest;
-    } 
+    }
 }

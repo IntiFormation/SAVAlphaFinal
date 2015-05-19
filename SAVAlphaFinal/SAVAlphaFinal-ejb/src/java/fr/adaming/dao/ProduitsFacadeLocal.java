@@ -11,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author INTI-0205
+ * @author INTI-0215
  */
 @Local
 public interface ProduitsFacadeLocal {
@@ -29,5 +29,17 @@ public interface ProduitsFacadeLocal {
     List<Produits> findRange(int[] range);
 
     int count();
+
+    List<Produits> getByCategorie(String categorie);
+
+    Produits getById(int id);
+
+    List<Produits> getByCategorieAndMarque(String categorie, String marque);
+    
+    List<String> getCategorie();
+    
+    List<String> getMarqueByCategorie(String categorie);
+    
+    
     
 }
