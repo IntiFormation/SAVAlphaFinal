@@ -30,4 +30,6 @@ public interface ReparationsFacadeLocal {
 
     int count();
     
+    List<Reparations> findByReparateur(int id_reparateur);
+    
 }

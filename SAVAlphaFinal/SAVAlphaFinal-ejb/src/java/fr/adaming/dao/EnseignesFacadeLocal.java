@@ -5,7 +5,7 @@
  */
 package fr.adaming.dao;
 
-import fr.adaming.models.Comptes;
+import fr.adaming.models.Enseignes;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,22 +14,20 @@ import javax.ejb.Local;
  * @author INTI-0205
  */
 @Local
-public interface ComptesFacadeLocal {
+public interface EnseignesFacadeLocal {
 
-    void create(Comptes comptes);
+    void create(Enseignes enseignes);
 
-    void edit(Comptes comptes);
+    void edit(Enseignes enseignes);
 
-    void remove(Comptes comptes);
+    void remove(Enseignes enseignes);
 
-    Comptes find(Object id);
+    Enseignes find(Object id);
 
-    List<Comptes> findAll();
+    List<Enseignes> findAll();
 
-    List<Comptes> findRange(int[] range);
+    List<Enseignes> findRange(int[] range);
 
     int count();
-    
-    public boolean isValid(String login, String pwd);
     
 }
