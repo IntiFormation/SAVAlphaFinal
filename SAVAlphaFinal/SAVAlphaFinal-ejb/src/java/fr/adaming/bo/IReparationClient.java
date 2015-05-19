@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author INTI-0205
  */
-public interface IReparation {
+public interface IReparationClient {
     
     public List<String> choisirCategorieProduit(String categorie);
     public List<String> choisirMarqueProduit(String marque);
@@ -20,7 +20,5 @@ public interface IReparation {
     
     public boolean ajouter(int idReparateur, int idPanne, String details, 
             Date date, String etat, int payee);
-    public boolean majEtat(String etat, Date date);
-    public boolean payer();
     
 }

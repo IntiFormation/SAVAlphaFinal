@@ -5,10 +5,27 @@
  */
 package fr.adaming.bo;
 
+import fr.adaming.dao.ReparationsFacadeLocal;
+import java.util.Date;
+import javax.ejb.EJB;
+
 /**
  *
  * @author INTI-0205
  */
-public class ApplicationBO {
+public class ApplicationBO implements IReparationApp{
+    
+    @EJB
+    private ReparationsFacadeLocal reparation;
+    
+    @Override
+    public boolean majEtat(int idReparation, String etat, Date date) {
+        return reparation.updateEtat(etat, date, idReparation);
+    }
+
+    @Override
+    public boolean solder(int idReparation) {
+        return reparation.updatePayee(1, idReparation);
+    }
     
 }

@@ -6,6 +6,7 @@
 package fr.adaming.dao;
 
 import fr.adaming.models.Reparations;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -35,6 +36,23 @@ public class ReparationsFacade extends AbstractFacade<Reparations> implements Re
         Query query = em.createNamedQuery("Reparations.findByReparateur");
         query.setParameter("idReparateur", id_reparateur);
         return query.getResultList();
+    }
+
+    @Override
+    public boolean updatePayee(int p, int idReparation) {
+        Query query = em.createNamedQuery("Reparations.updatePayee");
+        query.setParameter("payee", p);
+        query.setParameter("idReparation", idReparation);
+        return query.executeUpdate() == 1;
+    }
+
+    @Override
+    public boolean updateEtat(String etat, Date date, int idReparation) {
+        Query query = em.createNamedQuery("Reparations.updtateEtat");
+        query.setParameter("etat", etat);
+        query.setParameter("date", date);
+        query.setParameter("idReparation", idReparation);
+        return query.executeUpdate() == 1;
     }
     
 }

@@ -41,7 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reparations.findByDescription", query = "SELECT r FROM Reparations r WHERE r.description = :description"),
     @NamedQuery(name = "Reparations.findByDateEtat", query = "SELECT r FROM Reparations r WHERE r.dateEtat = :dateEtat"),
     @NamedQuery(name = "Reparations.findByEtat", query = "SELECT r FROM Reparations r WHERE r.etat = :etat"),
-    @NamedQuery(name = "Reparations.findByPayee", query = "SELECT r FROM Reparations r WHERE r.payee = :payee")})
+    @NamedQuery(name = "Reparations.findByPayee", query = "SELECT r FROM Reparations r WHERE r.payee = :payee"),
+    @NamedQuery(name = "Reparations.updatePayee", query = "UPDATE Reparations r SET r.payee = :payee WHERE r.idReparation = :idReparation"),
+    @NamedQuery(name = "Reparations.updtateEtat", query = "UPDATE Reparations r SET r.etat = :etat r.dateEtat = :date  WHERE r.idReparation = :idReparation")})
 public class Reparations implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
