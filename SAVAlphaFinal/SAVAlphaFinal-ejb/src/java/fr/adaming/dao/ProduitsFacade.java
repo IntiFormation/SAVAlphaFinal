@@ -21,9 +21,9 @@ import javax.persistence.Query;
  */
 @Stateless
 public class ProduitsFacade extends AbstractFacade<Produits> implements ProduitsFacadeLocal {
+
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
-    
 
     @Override
     protected EntityManager getEntityManager() {
@@ -32,42 +32,56 @@ public class ProduitsFacade extends AbstractFacade<Produits> implements Produits
 
     public ProduitsFacade() {
         super(Produits.class);
-        
+
     }
-    
+
     @Override
-    public List<Produits> getByCategorie(String categorie){
-        
+    public List<Produits> findByCategorie(String categorie) {
+
         Query query = em.createNamedQuery("Produits.findByCategorie");
         query.setParameter("categorie", categorie);
         return query.getResultList();
-
     }
-    
+
     @Override
-    public List<Produits> getByCategorieAndMarque(String categorie, String marque){
+    public List<Produits> findByMarque(String marque) {
         
-        Query query =  em.createQuery("SELECT p FROM Produits p WHERE p.categorie = :categorie AND p.marque = :marque");
-        query.setParameter("categorie", categorie);
+        Query query = em.createNamedQuery("Produits.findByMarque");
         query.setParameter("marque", marque);
         return query.getResultList();
     }
-    
+
     @Override
-    public  List<String> getCategorie(){
+    public Produits findByModele(String modele) {
         
-        Query query =  em.createQuery("SELECT p.categorie FROM Produits p");
+        Query query = em.createNamedQuery("Produits.findByModele");
+        query.setParameter("modele", modele);
+        return (Produits) query.getSingleResult();
+    }
+
+    @Override
+    public List<String> findAllCategories() {
+
+        Query query = em.createNamedQuery("Produits.findAllCategories");
         return query.getResultList();
     }
-    
+
     @Override
-    public List<String> getMarqueByCategorie(String categorie)
-    {
-        Query query = em.createQuery("SELECT p.marque FROM Produits p WHERE p.categorie = :categorie");
+    public List<String> findMarquesByCategorie(String categorie) {
+
+        Query query = em.createNamedQuery("Produits.findMarquesByCategories");
         query.setParameter("categorie", categorie);
         return query.getResultList();
     }
-    
+
+    @Override
+    public List<String> findModelesByMarque(String marque) {
+
+        Query query = em.createNamedQuery("Produits.findModelesByMarque");
+        query.setParameter("marque", marque);
+        return query.getResultList();
+    }
+
     @Override
     public Collection<Garanties> findGarantiesByProduit(int id_produit) {
         return this.find(id_produit).getGarantiesCollection();
@@ -77,5 +91,5 @@ public class ProduitsFacade extends AbstractFacade<Produits> implements Produits
     public Collection<Pannes> findPannesByProduit(int id_produit) {
         return this.find(id_produit).getPannesCollection();
     }
- 
+
 }

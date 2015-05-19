@@ -42,7 +42,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Produits.findByUrlImg", query = "SELECT p FROM Produits p WHERE p.urlImg = :urlImg"),
     @NamedQuery(name = "Produits.findByTransportable", query = "SELECT p FROM Produits p WHERE p.transportable = :transportable"),
     @NamedQuery(name = "Produits.findByGarantieConstructeur", query = "SELECT p FROM Produits p WHERE p.garantieConstructeur = :garantieConstructeur"),
-    @NamedQuery(name = "Produits.findByGarantieIncluse", query = "SELECT p FROM Produits p WHERE p.garantieIncluse = :garantieIncluse")})
+    @NamedQuery(name = "Produits.findByGarantieIncluse", query = "SELECT p FROM Produits p WHERE p.garantieIncluse = :garantieIncluse"),
+    @NamedQuery(name = "Produits.findAllCategories", query = "SELECT p.categorie FROM Produits p"),
+    @NamedQuery(name = "Produits.findMarquesByCategories", query = "SELECT p.marque FROM Produits p WHERE p.categorie = :categorie"),
+    @NamedQuery(name = "Produits.findModelesByMarque", query = "SELECT p.modele FROM Produits p WHERE p.marque = :marque")})
 public class Produits implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

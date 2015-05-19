@@ -31,13 +31,17 @@ public interface ProduitsFacadeLocal {
 
     int count();
 
-    List<Produits> getByCategorie(String categorie);
-
-    List<Produits> getByCategorieAndMarque(String categorie, String marque);
+    List<Produits> findByCategorie(String categorie);
     
-    List<String> getCategorie();
+    List<Produits> findByMarque(String categorie);
     
-    List<String> getMarqueByCategorie(String categorie);
+    Produits findByModele(String categorie);
+    
+    List<String> findAllCategories();
+    
+    List<String> findMarquesByCategorie(String categorie);
+    
+    List<String> findModelesByMarque(String marque);
     
     public Collection<Garanties> findGarantiesByProduit(int id_produit);
     
