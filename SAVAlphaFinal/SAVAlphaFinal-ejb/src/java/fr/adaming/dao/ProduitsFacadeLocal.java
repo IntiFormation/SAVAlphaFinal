@@ -5,7 +5,10 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Garanties;
+import fr.adaming.models.Pannes;
 import fr.adaming.models.Produits;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -24,15 +27,11 @@ public interface ProduitsFacadeLocal {
 
     Produits find(Object id);
 
-    List<Produits> findAll();
-
     List<Produits> findRange(int[] range);
 
     int count();
 
     List<Produits> getByCategorie(String categorie);
-
-    Produits getById(int id);
 
     List<Produits> getByCategorieAndMarque(String categorie, String marque);
     
@@ -40,6 +39,8 @@ public interface ProduitsFacadeLocal {
     
     List<String> getMarqueByCategorie(String categorie);
     
+    public Collection<Garanties> findGarantiesByProduit(int id_produit);
     
+    public Collection<Pannes> findPannesByProduit(int id_produit);
     
 }

@@ -5,7 +5,10 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Garanties;
+import fr.adaming.models.Pannes;
 import fr.adaming.models.Produits;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,7 +21,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class ProduitsFacade extends AbstractFacade<Produits> implements ProduitsFacadeLocal {
-    @PersistenceContext(unitName = "SAVAlpha-ejbPU")
+    @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
     
 
@@ -33,21 +36,6 @@ public class ProduitsFacade extends AbstractFacade<Produits> implements Produits
     }
     
     @Override
-    public Produits getById(int id){
-        Query query =  em.createNamedQuery("Produits.findByIdProduit");
-        query.setParameter("idProduit", id);
-        return (Produits) query.getSingleResult();
-    }
-    
-    
-    @Override
-        public List<Produits> findAll(){
-            Query query = em.createNamedQuery("Produits.findAll");
-            return query.getResultList();
-        }
-    
-    
-    @Override
     public List<Produits> getByCategorie(String categorie){
         
         Query query = em.createNamedQuery("Produits.findByCategorie");
@@ -56,6 +44,7 @@ public class ProduitsFacade extends AbstractFacade<Produits> implements Produits
 
     }
     
+    @Override
     public List<Produits> getByCategorieAndMarque(String categorie, String marque){
         
         Query query =  em.createQuery("SELECT p FROM Produits p WHERE p.categorie = :categorie AND p.marque = :marque");
@@ -79,5 +68,14 @@ public class ProduitsFacade extends AbstractFacade<Produits> implements Produits
         return query.getResultList();
     }
     
-    
+    @Override
+    public Collection<Garanties> findGarantiesByProduit(int id_produit) {
+        return this.find(id_produit).getGarantiesCollection();
+    }
+
+    @Override
+    public Collection<Pannes> findPannesByProduit(int id_produit) {
+        return this.find(id_produit).getPannesCollection();
+    }
+ 
 }

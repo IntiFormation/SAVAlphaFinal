@@ -32,8 +32,4 @@ public interface CltProdGarVendFacadeLocal {
     List<CltProdGarVend> findRange(int[] range);
 
     int count();
-    
-    public List<Garanties> findGarantiesByClient(int id_client);
-    public List<Produits> findProduitsByClient(int id_client);
-    public List<Reparations> findReparationsByClient(int id_client);
 }

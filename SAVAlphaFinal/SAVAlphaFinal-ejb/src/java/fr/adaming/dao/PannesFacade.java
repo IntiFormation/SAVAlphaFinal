@@ -18,7 +18,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PannesFacade extends AbstractFacade<Pannes> implements PannesFacadeLocal {
-    @PersistenceContext(unitName = "SAVAlpha-ejbPU")
+    @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
     @Override

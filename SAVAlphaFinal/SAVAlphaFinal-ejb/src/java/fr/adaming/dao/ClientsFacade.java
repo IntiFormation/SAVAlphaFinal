@@ -6,6 +6,13 @@
 package fr.adaming.dao;
 
 import fr.adaming.models.Clients;
+import fr.adaming.models.CltProdGarVend;
+import fr.adaming.models.Garanties;
+import fr.adaming.models.Produits;
+import fr.adaming.models.Reparations;
+import java.util.Collection;
+import java.util.LinkedList;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +25,12 @@ import javax.persistence.PersistenceContext;
 public class ClientsFacade extends AbstractFacade<Clients> implements ClientsFacadeLocal {
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
+    
+    @EJB
+    ProduitsFacadeLocal produitsDao;
+    
+    @EJB
+    GarantiesFacadeLocal garantiesDao;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -28,4 +41,24 @@ public class ClientsFacade extends AbstractFacade<Clients> implements ClientsFac
         super(Clients.class);
     }
     
+    @Override
+    public Collection<Produits> findProduitsByClient(int id_client) {
+        Collection<CltProdGarVend> tmp = this.find(id_client).getCltProdGarVendCollection();
+        Collection<Produits> produits = new LinkedList<>();
+        for (CltProdGarVend t : tmp) {
+            produits.add(produitsDao.find(t.getIdProduit()));
+        }
+        return produits;
+    }
+
+    @Override
+    public Collection<Garanties> findGarantiesByClient(int id_client) {
+        Collection<CltProdGarVend> tmp = this.find(id_client).getCltProdGarVendCollection();
+        Collection<Garanties> garanties = new LinkedList<>();
+        for (CltProdGarVend t : tmp) {
+            garanties.add(garantiesDao.find(t.getIdGarantie()));
+        }
+        return garanties;
+    }
+
 }

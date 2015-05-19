@@ -33,10 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQueries({
             @NamedQuery(name = "CltProdGarVend.findAll", query = "SELECT c FROM CltProdGarVend c"),
             @NamedQuery(name = "CltProdGarVend.findByDateAchat", query = "SELECT c FROM CltProdGarVend c WHERE c.dateAchat = :dateAchat"),
-            @NamedQuery(name = "CltProdGarVend.findByIdCltProdGarVend", query = "SELECT c FROM CltProdGarVend c WHERE c.idCltProdGarVend = :idCltProdGarVend"),
-            @NamedQuery(name = "CltProdGarVend.findGarantiesByClient", query = "SELECT c.idGarantie FROM CltProdGarVend c WHERE c.idClient = :idClient"),
-            @NamedQuery(name = "CltProdGarVend.findProduitsByClient", query = "SELECT c.idProduit FROM CltProdGarVend c WHERE c.idClient = :idClient"),
-            @NamedQuery(name = "CltProdGarVend.findReparationsByClient", query = "SELECT c.idReparation FROM CltProdGarVend c WHERE c.idClient = :idClient")})
+            @NamedQuery(name = "CltProdGarVend.findByIdCltProdGarVend", query = "SELECT c FROM CltProdGarVend c WHERE c.idCltProdGarVend = :idCltProdGarVend")})
 public class CltProdGarVend implements Serializable {
 
     private static final long serialVersionUID = 1L;

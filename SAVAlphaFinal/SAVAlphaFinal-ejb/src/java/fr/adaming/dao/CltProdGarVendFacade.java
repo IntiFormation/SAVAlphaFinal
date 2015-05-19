@@ -33,47 +33,5 @@ public class CltProdGarVendFacade extends AbstractFacade<CltProdGarVend> impleme
     public CltProdGarVendFacade() {
         super(CltProdGarVend.class);
     }
-
-    @Override
-    public List<Garanties> findGarantiesByClient(int id_client) {
-        Query query = em.createNamedQuery("CltProdGarVend.findGarantiesByClient");
-        query.setParameter("idClient", id_client);
-        List<Integer> id_garanties = query.getResultList();
-        List<Garanties> garanties = new ArrayList<>();
-        for (Integer id : id_garanties) {
-            query = em.createNamedQuery("Garanties.findByIdGarantie");
-            query.setParameter("idGarantie", id);
-            garanties.add((Garanties) query.getSingleResult());
-        }
-        return garanties;
-    }
-
-    @Override
-    public List<Produits> findProduitsByClient(int id_client) {
-        Query query = em.createNamedQuery("CltProdGarVend.findProduitsByClient");
-        query.setParameter("idClient", id_client);
-        List<Integer> id_garanties = query.getResultList();
-        List<Produits> produits = new ArrayList<>();
-        for (Integer id : id_garanties) {
-            query = em.createNamedQuery("Produits.findByIdProduit");
-            query.setParameter("idProduit", id);
-            produits.add((Produits) query.getSingleResult());
-        }
-        return produits;
-    }
-
-    @Override
-    public List<Reparations> findReparationsByClient(int id_client) {
-        Query query = em.createNamedQuery("CltProdGarVend.findReparationsByClient");
-        query.setParameter("idClient", id_client);
-        List<Integer> id_garanties = query.getResultList();
-        List<Reparations> reparations = new ArrayList<>();
-        for (Integer id : id_garanties) {
-            query = em.createNamedQuery("Reparations.findByIdReparation");
-            query.setParameter("idReparation", id);
-            reparations.add((Reparations) query.getSingleResult());
-        }
-        return reparations;
-    }
     
 }
