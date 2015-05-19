@@ -5,7 +5,9 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Garanties;
 import fr.adaming.models.Vendeurs;
+import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +28,12 @@ public class VendeursFacade extends AbstractFacade<Vendeurs> implements Vendeurs
 
     public VendeursFacade() {
         super(Vendeurs.class);
+    }
+    
+    @Override
+    public Collection<Garanties> findGarantiesByVendeur(Integer idVendeur) {
+        
+        return this.find(idVendeur).getGarantiesCollection();
     }
     
 }

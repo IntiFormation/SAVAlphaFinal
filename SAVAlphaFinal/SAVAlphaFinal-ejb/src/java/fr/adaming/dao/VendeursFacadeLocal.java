@@ -5,7 +5,9 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Garanties;
 import fr.adaming.models.Vendeurs;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +31,7 @@ public interface VendeursFacadeLocal {
     List<Vendeurs> findRange(int[] range);
 
     int count();
+    
+    public Collection<Garanties> findGarantiesByVendeur(Integer idVendeur);
     
 }
