@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -42,6 +44,7 @@ public class Pannes implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_panne")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPanne;
     @Size(max = 254)
     @Column(name = "nom")

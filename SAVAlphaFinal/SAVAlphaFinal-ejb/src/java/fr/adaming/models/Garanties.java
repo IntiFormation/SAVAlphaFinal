@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -38,6 +40,7 @@ public class Garanties implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_garantie")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idGarantie;
     @Column(name = "duree")
     private Integer duree;
