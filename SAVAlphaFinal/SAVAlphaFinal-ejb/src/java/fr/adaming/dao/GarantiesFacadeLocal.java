@@ -30,4 +30,6 @@ public interface GarantiesFacadeLocal {
 
     int count();
     
+    public List<Garanties> findByProduit(int id_produit);
+
 }
