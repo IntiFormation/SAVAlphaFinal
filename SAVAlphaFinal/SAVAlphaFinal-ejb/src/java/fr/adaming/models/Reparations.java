@@ -79,6 +79,15 @@ public class Reparations implements Serializable {
         this.idReparation = idReparation;
     }
 
+    public Reparations(String description, Date dateEtat, String etat, Integer payee, Reparateurs idReparateur, Pannes idPanne) {
+        this.description = description;
+        this.dateEtat = dateEtat;
+        this.etat = etat;
+        this.payee = payee;
+        this.idReparateur = idReparateur;
+        this.idPanne = idPanne;
+    }
+
     public Integer getIdReparation() {
         return idReparation;
     }

@@ -35,7 +35,7 @@ public interface ProduitsFacadeLocal {
     
     List<Produits> findByMarque(String categorie);
     
-    Produits findByModele(String categorie);
+    Produits findByModele(String modele);
     
     List<String> findAllCategories();
     

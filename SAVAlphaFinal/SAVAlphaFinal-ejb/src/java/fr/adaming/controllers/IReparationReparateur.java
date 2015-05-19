@@ -5,7 +5,7 @@
  */
 package fr.adaming.controllers;
 
-import java.util.Date;
+import java.util.Map;
 
 /**
  *
@@ -13,8 +13,7 @@ import java.util.Date;
  */
 public interface IReparationReparateur {
     
-    public boolean recevoirProduit(int idReparation);
-    public boolean reparerProduit(int idReparation);
-    public boolean renvoyerProduit(int idReparation);
+    Map<String,Float> remplirDevis();
+    boolean seDeplacer();
     
 }

@@ -5,6 +5,9 @@
  */
 package fr.adaming.controllers;
 
+import fr.adaming.models.Pannes;
+import fr.adaming.models.Produits;
+import fr.adaming.models.Reparateurs;
 import java.util.Date;
 import java.util.List;
 
@@ -16,9 +19,9 @@ public interface IReparationClient {
     
     public List<String> choisirCategorieProduit(String categorie);
     public List<String> choisirMarqueProduit(String marque);
-    public List<String> choisirModeleProduit(String modele);
+    public Produits choisirModeleProduit(String modele);
     
-    public boolean ajouter(int idReparateur, int idPanne, String details, 
-            Date date, String etat, int payee);
+    public void ajouterReparation(Reparateurs reparateurs, Pannes pannes, String details, 
+            Date date, String etat, int payee, int idProduit, int idClient);
     
 }

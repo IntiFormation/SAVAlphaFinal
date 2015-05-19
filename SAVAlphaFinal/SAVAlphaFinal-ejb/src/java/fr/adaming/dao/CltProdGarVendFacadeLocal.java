@@ -6,9 +6,6 @@
 package fr.adaming.dao;
 
 import fr.adaming.models.CltProdGarVend;
-import fr.adaming.models.Garanties;
-import fr.adaming.models.Produits;
-import fr.adaming.models.Reparations;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -32,4 +29,6 @@ public interface CltProdGarVendFacadeLocal {
     List<CltProdGarVend> findRange(int[] range);
 
     int count();
+
+    public void addReparation(int idReparation, int idProduit, int idClient);
 }

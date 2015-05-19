@@ -33,5 +33,13 @@ public class CltProdGarVendFacade extends AbstractFacade<CltProdGarVend> impleme
     public CltProdGarVendFacade() {
         super(CltProdGarVend.class);
     }
+
+    @Override
+    public void addReparation(int idReparation, int idProduit, int idClient) {
+        Query query = em.createNamedQuery("CltProdGarVend.addReparation");
+        query.setParameter("idReparation", idReparation);
+        query.setParameter("idProduit", idProduit);
+        query.setParameter("idClient", idClient);
+    }
     
 }
