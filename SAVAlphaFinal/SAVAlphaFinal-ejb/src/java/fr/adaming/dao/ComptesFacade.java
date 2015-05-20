@@ -9,6 +9,7 @@ import fr.adaming.models.Comptes;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ComptesFacade extends AbstractFacade<Comptes> implements ComptesFacadeLocal {
+
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
@@ -27,5 +29,21 @@ public class ComptesFacade extends AbstractFacade<Comptes> implements ComptesFac
     public ComptesFacade() {
         super(Comptes.class);
     }
-    
+
+    @Override
+    public boolean isValid(String login, String pwd) {
+        Query query = em.createNamedQuery("Comptes.findByLogin");
+        query.setParameter("login", login);
+        String real_pwd = query.getSingleResult().toString();
+        return real_pwd.equals(pwd);
+    }
+
+    @Override
+    public Integer findIdCompteByLogin(String login) {
+
+        Query query = em.createNamedQuery("Comptes.findByLogin");
+        query.setParameter("login", login);
+        return (Integer) query.getSingleResult();
+    }
+
 }

@@ -5,8 +5,8 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Achats;
 import fr.adaming.models.Clients;
-import fr.adaming.models.CltProdGarVend;
 import fr.adaming.models.Garanties;
 import fr.adaming.models.Produits;
 import java.util.Collection;
@@ -18,7 +18,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author INTI-0215
+ * @author INTI-0205
  */
 @Stateless
 public class ClientsFacade extends AbstractFacade<Clients> implements ClientsFacadeLocal {
@@ -33,43 +33,29 @@ public class ClientsFacade extends AbstractFacade<Clients> implements ClientsFac
     public ClientsFacade() {
         super(Clients.class);
     }
-
-//    @Override
-//    public Collection<Produits> findProduitsByClient(int id_client) {
-//        Collection<CltProdGarVend> tmp = this.find(id_client).getCltProdGarVendCollection();
-//        Collection<Produits> produits = new LinkedList<>();
-//        for (CltProdGarVend t : tmp) {
-//            produits.add(produitsDao.find(t.getIdProduit()));
-//        }
-//        return produits;
-//    }
-//
-//    @Override
-//    public Collection<Garanties> findGarantiesByClient(int id_client) {
-//        Collection<CltProdGarVend> tmp = this.find(id_client).getCltProdGarVendCollection();
-//        Collection<Garanties> garanties = new LinkedList<>();
-//        for (CltProdGarVend t : tmp) {
-//            garanties.add(garantiesDao.find(t.getIdGarantie()));
-//        }
-//        return garanties;
-//    }
     
     @Override
-    public Integer getIdAdresse(Integer num, String voie, String code){
-        Query query = em.createQuery("SELECT a.idAdresse FROM Adresses a WHERE a.numero = :numero AND a.nomVoie = :nomVoie AND a.codePostal = :codePostal");
-        query.setParameter("numero", num);
-        query.setParameter("nomVoie", voie);
-        query.setParameter("codePostal", code);
+    public Collection<Produits> findProduitsByClient(int id_client) {
         
-        return (Integer) query.getSingleResult();
+        Collection<Achats> achats = this.find(id_client).getAchatsCollection();
+        Collection<Produits> produits = new LinkedList<>();
+        ProduitsFacadeLocal produit = new ProduitsFacade();
+        for (Achats a : achats) {
+            produits.add(produit.find(a.getIdProduit()));
+        }
+        return produits;
     }
-    
+
     @Override
-    public Integer getIdCompte (String login){
-        Query query = em.createNamedQuery("Comptes.findByLogin");
-        query.setParameter("login", login);
+    public Collection<Garanties> findGarantiesByClient(int id_client) {
         
-        return (Integer) query.getSingleResult();
+        Collection<Achats> achats = this.find(id_client).getAchatsCollection();
+        Collection<Garanties> garanties = new LinkedList<>();
+        GarantiesFacadeLocal garantie = new GarantiesFacade();
+        for (Achats a : achats) {
+            garanties.add(garantie.find(a.getIdClient()));
+        }
+        return garanties;
     }
     
 }

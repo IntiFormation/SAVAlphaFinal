@@ -8,7 +8,6 @@ package fr.adaming.models;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -36,15 +34,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Clients.findAll", query = "SELECT c FROM Clients c"),
     @NamedQuery(name = "Clients.findByIdClient", query = "SELECT c FROM Clients c WHERE c.idClient = :idClient"),
     @NamedQuery(name = "Clients.findByNom", query = "SELECT c FROM Clients c WHERE c.nom = :nom"),
-    @NamedQuery(name = "Clients.findByPrenom", query = "SELECT c FROM Clients c WHERE c.prenom = :prenom"),
-    @NamedQuery(name = "Clients.findByMail", query = "SELECT c FROM Clients c WHERE c.mail = :mail")})
+    @NamedQuery(name = "Clients.findByPrenom", query = "SELECT c FROM Clients c WHERE c.prenom = :prenom")})
 public class Clients implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_client")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_client")
     private Integer idClient;
     @Size(max = 254)
     @Column(name = "nom")
@@ -52,11 +48,6 @@ public class Clients implements Serializable {
     @Size(max = 254)
     @Column(name = "prenom")
     private String prenom;
-    @Size(max = 254)
-    @Column(name = "mail")
-    private String mail;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idClient")
-    private Collection<CltProdGarVend> cltProdGarVendCollection;
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse")
     @ManyToOne
     private Adresses idAdresse;
@@ -66,6 +57,8 @@ public class Clients implements Serializable {
     @JoinColumn(name = "id_compte", referencedColumnName = "id_compte")
     @ManyToOne
     private Comptes idCompte;
+    @OneToMany(mappedBy = "idClient")
+    private Collection<Achats> achatsCollection;
 
     public Clients() {
     }
@@ -98,23 +91,6 @@ public class Clients implements Serializable {
         this.prenom = prenom;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    @XmlTransient
-    public Collection<CltProdGarVend> getCltProdGarVendCollection() {
-        return cltProdGarVendCollection;
-    }
-
-    public void setCltProdGarVendCollection(Collection<CltProdGarVend> cltProdGarVendCollection) {
-        this.cltProdGarVendCollection = cltProdGarVendCollection;
-    }
-
     public Adresses getIdAdresse() {
         return idAdresse;
     }
@@ -137,6 +113,15 @@ public class Clients implements Serializable {
 
     public void setIdCompte(Comptes idCompte) {
         this.idCompte = idCompte;
+    }
+
+    @XmlTransient
+    public Collection<Achats> getAchatsCollection() {
+        return achatsCollection;
+    }
+
+    public void setAchatsCollection(Collection<Achats> achatsCollection) {
+        this.achatsCollection = achatsCollection;
     }
 
     @Override

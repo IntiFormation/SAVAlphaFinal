@@ -14,7 +14,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author INTI-0215
+ * @author INTI-0205
  */
 @Local
 public interface ClientsFacadeLocal {
@@ -33,13 +33,8 @@ public interface ClientsFacadeLocal {
 
     int count();
     
-    //public Collection<Garanties> findGarantiesByClient(int id_client);
+    public Collection<Produits> findProduitsByClient(int id_client);
     
-    //public Collection<Produits> findProduitsByClient(int id_client);
+    public Collection<Garanties> findGarantiesByClient(int id_client);
     
-    Integer getIdAdresse(Integer num, String voie, String code);
-    
-    Integer getIdCompte (String login);
-
-
 }

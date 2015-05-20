@@ -8,7 +8,6 @@ package fr.adaming.models;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -42,14 +40,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Produits.findByUrlImg", query = "SELECT p FROM Produits p WHERE p.urlImg = :urlImg"),
     @NamedQuery(name = "Produits.findByTransportable", query = "SELECT p FROM Produits p WHERE p.transportable = :transportable"),
     @NamedQuery(name = "Produits.findByGarantieConstructeur", query = "SELECT p FROM Produits p WHERE p.garantieConstructeur = :garantieConstructeur"),
-    @NamedQuery(name = "Produits.findByGarantieIncluse", query = "SELECT p FROM Produits p WHERE p.garantieIncluse = :garantieIncluse")})
+    @NamedQuery(name = "Produits.findByGarantieIncluse", query = "SELECT p FROM Produits p WHERE p.garantieIncluse = :garantieIncluse"),
+    @NamedQuery(name = "Produits.findAllCategories", query = "SELECT p.categorie FROM Produits p"),
+    @NamedQuery(name = "Produits.findMarquesByCategories", query = "SELECT p.marque FROM Produits p WHERE p.categorie = :categorie"),
+    @NamedQuery(name = "Produits.findModelesByMarque", query = "SELECT p.modele FROM Produits p WHERE p.marque = :marque")})
 public class Produits implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_produit")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_produit")
     private Integer idProduit;
     @Size(max = 254)
     @Column(name = "categorie")
@@ -76,8 +76,8 @@ public class Produits implements Serializable {
         @JoinColumn(name = "id_garantie", referencedColumnName = "id_garantie")})
     @ManyToMany
     private Collection<Garanties> garantiesCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProduit")
-    private Collection<CltProdGarVend> cltProdGarVendCollection;
+    @OneToMany(mappedBy = "idProduit")
+    private Collection<Achats> achatsCollection;
 
     public Produits() {
     }
@@ -169,12 +169,12 @@ public class Produits implements Serializable {
     }
 
     @XmlTransient
-    public Collection<CltProdGarVend> getCltProdGarVendCollection() {
-        return cltProdGarVendCollection;
+    public Collection<Achats> getAchatsCollection() {
+        return achatsCollection;
     }
 
-    public void setCltProdGarVendCollection(Collection<CltProdGarVend> cltProdGarVendCollection) {
-        this.cltProdGarVendCollection = cltProdGarVendCollection;
+    public void setAchatsCollection(Collection<Achats> achatsCollection) {
+        this.achatsCollection = achatsCollection;
     }
 
     @Override

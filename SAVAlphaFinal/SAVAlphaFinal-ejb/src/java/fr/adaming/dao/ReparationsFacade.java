@@ -7,9 +7,11 @@ package fr.adaming.dao;
 
 import fr.adaming.models.Pannes;
 import fr.adaming.models.Reparations;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -17,7 +19,6 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ReparationsFacade extends AbstractFacade<Reparations> implements ReparationsFacadeLocal {
-
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
@@ -29,24 +30,42 @@ public class ReparationsFacade extends AbstractFacade<Reparations> implements Re
     public ReparationsFacade() {
         super(Reparations.class);
     }
-
+    
     @Override
-    public String getEtat(Integer idReparation) {
+    public String findEtat(Integer idReparation) {
         return this.find(idReparation).getEtat();
     }
 
     @Override
-    public Integer getPayement(Integer idReparation) {
+    public Integer findPayement(Integer idReparation) {
         return this.find(idReparation).getPayee();
     }
 
     @Override
-    public Pannes getPanne(Integer idReparation) {
+    public Pannes findPanne(Integer idReparation) {
         return this.find(idReparation).getIdPanne();
     }
 
     @Override
-    public String getDescription(Integer idReparation) {
+    public String findDescription(Integer idReparation) {
         return this.find(idReparation).getDescription();
     }
+    
+    @Override
+    public boolean updatePayee(int p, int idReparation) {
+        Query query = em.createNamedQuery("Reparations.updatePayee");
+        query.setParameter("payee", p);
+        query.setParameter("idReparation", idReparation);
+        return query.executeUpdate() == 1;
+    }
+
+    @Override
+    public boolean updateEtat(String etat, Date date, int idReparation) {
+        Query query = em.createNamedQuery("Reparations.updtateEtat");
+        query.setParameter("etat", etat);
+        query.setParameter("date", date);
+        query.setParameter("idReparation", idReparation);
+        return query.executeUpdate() == 1;
+    }
+    
 }

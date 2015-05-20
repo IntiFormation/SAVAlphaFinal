@@ -8,8 +8,11 @@ package fr.adaming.models;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,7 +21,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -39,8 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Pannes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id_panne")
     private Integer idPanne;
     @Size(max = 254)
@@ -57,7 +59,7 @@ public class Pannes implements Serializable {
         @JoinColumn(name = "id_produit", referencedColumnName = "id_produit")})
     @ManyToMany
     private Collection<Produits> produitsCollection;
-    @OneToMany(mappedBy = "idPanne")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPanne")
     private Collection<Reparations> reparationsCollection;
 
     public Pannes() {

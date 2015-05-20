@@ -17,11 +17,10 @@ import javax.persistence.Query;
 
 /**
  *
- * @author INTI-0215
+ * @author INTI-0205
  */
 @Stateless
 public class ProduitsFacade extends AbstractFacade<Produits> implements ProduitsFacadeLocal {
-
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
@@ -32,51 +31,62 @@ public class ProduitsFacade extends AbstractFacade<Produits> implements Produits
 
     public ProduitsFacade() {
         super(Produits.class);
-
     }
-
+    
     @Override
-    public List<Produits> getByCategorie(String categorie) {
+    public List<Produits> findByCategorie(String categorie) {
 
         Query query = em.createNamedQuery("Produits.findByCategorie");
         query.setParameter("categorie", categorie);
         return query.getResultList();
-
     }
 
     @Override
-    public List<Produits> getByCategorieAndMarque(String categorie, String marque) {
-
-        Query query = em.createQuery("SELECT p FROM Produits p WHERE p.categorie = :categorie AND p.marque = :marque");
-        query.setParameter("categorie", categorie);
+    public List<Produits> findByMarque(String marque) {
+        
+        Query query = em.createNamedQuery("Produits.findByMarque");
         query.setParameter("marque", marque);
         return query.getResultList();
     }
 
     @Override
-    public List<String> getCategorie() {
+    public Produits findByModele(String modele) {
+        
+        Query query = em.createNamedQuery("Produits.findByModele");
+        query.setParameter("modele", modele);
+        return (Produits) query.getSingleResult();
+    }
 
-        Query query = em.createQuery("SELECT p.categorie FROM Produits p GROUP BY p.categorie");
+    @Override
+    public List<String> findAllCategories() {
+
+        Query query = em.createNamedQuery("Produits.findAllCategories");
         return query.getResultList();
     }
 
     @Override
-    public List<String> getMarqueByCategorie(String categorie) {
-        Query query = em.createQuery("SELECT p.marque FROM Produits p WHERE p.categorie = :categorie GROUP BY p.marque");
+    public List<String> findMarquesByCategorie(String categorie) {
+
+        Query query = em.createNamedQuery("Produits.findMarquesByCategories");
         query.setParameter("categorie", categorie);
         return query.getResultList();
     }
 
     @Override
-    public Collection<Pannes> getPannes(int id) {
+    public List<String> findModelesByMarque(String marque) {
 
-        return this.find(id).getPannesCollection();
+        Query query = em.createNamedQuery("Produits.findModelesByMarque");
+        query.setParameter("marque", marque);
+        return query.getResultList();
     }
 
     @Override
-    public Collection<Garanties> getGaranties(int id) {
-
-        return this.find(id).getGarantiesCollection();
+    public Collection<Garanties> findGarantiesByProduit(int id_produit) {
+        return this.find(id_produit).getGarantiesCollection();
     }
-
+    
+    @Override
+    public Collection<Pannes> findPannesByProduit(String idProduit) {
+        return this.find(idProduit).getPannesCollection();
+    }
 }

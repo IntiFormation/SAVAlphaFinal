@@ -33,10 +33,8 @@ public interface ReparateursFacadeLocal {
 
     int count();
     
-    Integer getNbReparations(Integer idReparateur);
+    public Adresses findAdresse(Integer idReparateur);
     
-    Adresses getAdresse(Integer idReparateur);
+    public Collection<Reparations> findReparationsByReparateur(int id_reparateur);
     
-    Collection<Reparations> getReparations(Integer idReparateur);
-            
 }

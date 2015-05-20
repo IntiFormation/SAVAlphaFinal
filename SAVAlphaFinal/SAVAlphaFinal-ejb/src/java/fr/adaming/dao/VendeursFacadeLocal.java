@@ -33,8 +33,10 @@ public interface VendeursFacadeLocal {
 
     int count();
     
-    Collection<Garanties> getGaranties(Integer idVendeur);
+    public Adresses findAdresse(Integer idVendeur);
     
-    Adresses getAdresse(Integer idVendeur);
+    public Collection<Garanties> findGarantiesByVendeur(Integer idVendeur);
+    
+    Adresses findAdresseByVendeur(Integer idVendeur);
     
 }

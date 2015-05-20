@@ -5,10 +5,12 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Achats;
 import fr.adaming.models.Adresses;
 import fr.adaming.models.Garanties;
 import fr.adaming.models.Vendeurs;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,7 +23,6 @@ import javax.persistence.Query;
  */
 @Stateless
 public class VendeursFacade extends AbstractFacade<Vendeurs> implements VendeursFacadeLocal {
-
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
@@ -33,30 +34,22 @@ public class VendeursFacade extends AbstractFacade<Vendeurs> implements Vendeurs
     public VendeursFacade() {
         super(Vendeurs.class);
     }
-
-    @Override
-    public Collection<Garanties> getGaranties(Integer idVendeur) {
-        
-        return this.find(idVendeur).getGarantiesCollection();
-    }
     
-    public Adresses getAdresse(Integer idVendeur){
+    @Override
+    public Adresses findAdresse(Integer idVendeur) {
         return this.find(idVendeur).getIdAdresse();
     }
     
-    public Integer getIdAdresse(Integer num, String voie, String code){
-        Query query = em.createQuery("SELECT a.idAdresse FROM Adresses a WHERE a.numero = :numero AND a.nomVoie = :nomVoie AND a.codePostal = :codePostal");
-        query.setParameter("numero", num);
-        query.setParameter("nomVoie", voie);
-        query.setParameter("codePostal", code);
+    @Override
+    public Collection<Garanties> findGarantiesByVendeur(Integer idVendeur) {
         
-        return (Integer) query.getSingleResult();
+        return this.find(idVendeur).getGarantiesCollection();
+    }
+
+    @Override
+    public Adresses findAdresseByVendeur(Integer idVendeur) {
+        
+        return this.find(idVendeur).getIdAdresse();
     }
     
-    public Integer getIdCompte (String login){
-        Query query = em.createNamedQuery("Comptes.findByLogin");
-        query.setParameter("login", login);
-        
-        return (Integer) query.getSingleResult();
-    }
 }

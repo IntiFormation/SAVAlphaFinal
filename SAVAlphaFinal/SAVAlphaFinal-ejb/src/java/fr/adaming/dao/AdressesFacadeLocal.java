@@ -30,4 +30,6 @@ public interface AdressesFacadeLocal {
 
     int count();
     
+    public Integer findIdAdresse(Integer num, String voie, String code);
+    
 }

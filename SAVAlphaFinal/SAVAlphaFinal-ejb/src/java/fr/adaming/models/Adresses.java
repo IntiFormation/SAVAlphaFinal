@@ -6,19 +6,17 @@
 package fr.adaming.models;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,8 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Adresses implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id_adresse")
     private Integer idAdresse;
     @Column(name = "numero")
@@ -52,14 +50,6 @@ public class Adresses implements Serializable {
     @Size(max = 45)
     @Column(name = "ville")
     private String ville;
-    @OneToMany(mappedBy = "idAdresse")
-    private Collection<Reparateurs> reparateursCollection;
-    @OneToMany(mappedBy = "idAdresse")
-    private Collection<Vendeurs> vendeursCollection;
-    @OneToMany(mappedBy = "idAdresse")
-    private Collection<Clients> clientsCollection;
-    @OneToMany(mappedBy = "idAdresse2")
-    private Collection<Clients> clientsCollection1;
 
     public Adresses() {
     }
@@ -106,42 +96,6 @@ public class Adresses implements Serializable {
 
     public void setVille(String ville) {
         this.ville = ville;
-    }
-
-    @XmlTransient
-    public Collection<Reparateurs> getReparateursCollection() {
-        return reparateursCollection;
-    }
-
-    public void setReparateursCollection(Collection<Reparateurs> reparateursCollection) {
-        this.reparateursCollection = reparateursCollection;
-    }
-
-    @XmlTransient
-    public Collection<Vendeurs> getVendeursCollection() {
-        return vendeursCollection;
-    }
-
-    public void setVendeursCollection(Collection<Vendeurs> vendeursCollection) {
-        this.vendeursCollection = vendeursCollection;
-    }
-
-    @XmlTransient
-    public Collection<Clients> getClientsCollection() {
-        return clientsCollection;
-    }
-
-    public void setClientsCollection(Collection<Clients> clientsCollection) {
-        this.clientsCollection = clientsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Clients> getClientsCollection1() {
-        return clientsCollection1;
-    }
-
-    public void setClientsCollection1(Collection<Clients> clientsCollection1) {
-        this.clientsCollection1 = clientsCollection1;
     }
 
     @Override

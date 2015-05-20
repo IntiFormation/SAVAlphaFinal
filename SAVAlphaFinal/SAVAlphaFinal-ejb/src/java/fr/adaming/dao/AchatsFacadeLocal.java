@@ -5,7 +5,7 @@
  */
 package fr.adaming.dao;
 
-import fr.adaming.models.Pannes;
+import fr.adaming.models.Achats;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author INTI-0205
  */
 @Local
-public interface PannesFacadeLocal {
+public interface AchatsFacadeLocal {
 
-    void create(Pannes pannes);
+    void create(Achats achats);
 
-    void edit(Pannes pannes);
+    void edit(Achats achats);
 
-    void remove(Pannes pannes);
+    void remove(Achats achats);
 
-    Pannes find(Object id);
+    Achats find(Object id);
 
-    List<Pannes> findAll();
+    List<Achats> findAll();
 
-    List<Pannes> findRange(int[] range);
+    List<Achats> findRange(int[] range);
 
     int count();
     

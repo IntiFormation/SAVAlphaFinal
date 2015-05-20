@@ -32,17 +32,13 @@ public class ReparateursFacade extends AbstractFacade<Reparateurs> implements Re
     }
     
     @Override
-    public Integer getNbReparations(Integer idReparateur){        
-        return this.find(idReparateur).getNbReparation();
-    }
-    
-    @Override
-    public Adresses getAdresse(Integer idReparateur) {        
+    public Adresses findAdresse(Integer idReparateur) {        
         return this.find(idReparateur).getIdAdresse();
     }
     
     @Override
-    public Collection<Reparations> getReparations(Integer idReparateur){
+    public Collection<Reparations> findReparationsByReparateur(int idReparateur) {
         return this.find(idReparateur).getReparationsCollection();
     }
+    
 }

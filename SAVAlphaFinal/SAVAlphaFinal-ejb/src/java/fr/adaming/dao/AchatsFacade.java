@@ -5,18 +5,17 @@
  */
 package fr.adaming.dao;
 
-import fr.adaming.models.Adresses;
+import fr.adaming.models.Achats;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
  * @author INTI-0205
  */
 @Stateless
-public class AdressesFacade extends AbstractFacade<Adresses> implements AdressesFacadeLocal {
+public class AchatsFacade extends AbstractFacade<Achats> implements AchatsFacadeLocal {
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
@@ -25,16 +24,8 @@ public class AdressesFacade extends AbstractFacade<Adresses> implements Adresses
         return em;
     }
 
-    public AdressesFacade() {
-        super(Adresses.class);
-    }
-    
-    public Integer findIdAdresse(Integer num, String voie, String code){
-        Query query = em.createNamedQuery("Vendeurs.findIdAdresseByIdVendeur");
-        query.setParameter("numero", num);
-        query.setParameter("nomVoie", voie);
-        query.setParameter("codePostal", code);
-        return (Integer) query.getSingleResult();
+    public AchatsFacade() {
+        super(Achats.class);
     }
     
 }

@@ -10,12 +10,13 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -31,13 +32,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Comptes.findAll", query = "SELECT c FROM Comptes c"),
     @NamedQuery(name = "Comptes.findByIdCompte", query = "SELECT c FROM Comptes c WHERE c.idCompte = :idCompte"),
     @NamedQuery(name = "Comptes.findByLogin", query = "SELECT c FROM Comptes c WHERE c.login = :login"),
-    @NamedQuery(name = "Comptes.findByPwd", query = "SELECT c FROM Comptes c WHERE c.pwd = :pwd"),
-    @NamedQuery(name = "Comptes.findByType", query = "SELECT c FROM Comptes c WHERE c.type = :type")})
+    @NamedQuery(name = "Comptes.findByPwd", query = "SELECT c FROM Comptes c WHERE c.pwd = :pwd")})
 public class Comptes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id_compte")
     private Integer idCompte;
     @Size(max = 254)
@@ -46,8 +46,6 @@ public class Comptes implements Serializable {
     @Size(max = 254)
     @Column(name = "pwd")
     private String pwd;
-    @Column(name = "type")
-    private Integer type;
     @OneToMany(mappedBy = "idCompte")
     private Collection<Reparateurs> reparateursCollection;
     @OneToMany(mappedBy = "idCompte")
@@ -84,14 +82,6 @@ public class Comptes implements Serializable {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 
     @XmlTransient

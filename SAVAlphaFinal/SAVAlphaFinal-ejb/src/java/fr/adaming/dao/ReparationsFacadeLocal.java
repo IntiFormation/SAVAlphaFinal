@@ -7,6 +7,7 @@ package fr.adaming.dao;
 
 import fr.adaming.models.Pannes;
 import fr.adaming.models.Reparations;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,12 +32,16 @@ public interface ReparationsFacadeLocal {
 
     int count();
     
-    String getEtat(Integer idReparation) ;
+    public String findEtat(Integer idReparation);
     
-    Integer getPayement(Integer idReparation);
+    public Integer findPayement(Integer idReparation);
     
-    Pannes getPanne(Integer idReparation);
+    public Pannes findPanne(Integer idReparation);
     
-    String getDescription (Integer idReparation);
+    public String findDescription(Integer idReparation);
+    
+    public boolean updatePayee(int p, int idReparation);
+    
+    public boolean updateEtat(String etat, Date date, int idReparation);
     
 }
