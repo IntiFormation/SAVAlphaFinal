@@ -18,7 +18,7 @@ import java.util.List;
 public interface IReparationClient {
     
     public List<String> choisirCategorieProduit(String categorie);
-    public List<String> choisirMarqueProduit(String marque);
+    public List<String> choisirMarqueProduit(String categorie, String marque);
     public Produits choisirModeleProduit(String modele);
     
     public void ajouterReparation(Reparateurs reparateurs, Pannes pannes, String details, 

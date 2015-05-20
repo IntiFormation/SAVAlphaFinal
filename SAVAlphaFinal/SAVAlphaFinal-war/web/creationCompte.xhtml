@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Création compte</title>
     </h:head>
@@ -15,26 +16,32 @@
 
             <p:layoutUnit position="center" style="text-align: center">
                 <br/>
+                
+                <p:messages id="message" showDetail="true" autoUpdate="true" closable="true"/>
                 <h:form>
-                    <p:inputText id="nom" value=""placeholder="Nom"/>
+                    <f:event  type="preRenderView" listener="#{gestionClients.initClients()}"/>
+                    <p:inputText id="nom" value="#{gestionClients.client.nom}" placeholder="Nom"/>
+                    <p:watermark for="nom" value="NOM"/>
                     <br/>
                     <br/>
-                    <p:inputText id="prenom" placeholder="Prenom"/>
+                    <p:inputText id="prenom" value="#{gestionClients.client.prenom}" placeholder="Prenom"/>
+                    <p:watermark for="prenom" value="PRENOM"/>
                     <br/>
                     <br/>
-                    <p:inputText id="adresse1" placeholder="Adresse 1"/>
+                    <h:outputLabel value="Adresse 1 : "/>
+                    <p:inputText id="numAd1" value="#{gestionClients.adresse.numero}" placeholder="Numéro"/>
+                    <p:inputText id="nomAd1" value="#{gestionClients.adresse.nomVoie}" placeholder="Nom de voie"/>
+                    <p:inputText id="codePosAd1" value="#{gestionClients.adresse.codePostal}" placeholder="Code Postal"/>
+                    <p:inputText id="villeAd1" value="#{gestionClients.adresse.ville}" placeholder="Ville"/>
                     <br/>
                     <br/>
-                    <p:inputText id="adresse2" placeholder="Adresse 2"/>
+                    <p:inputText id="mail" value="#{gestionClients.compte.login}" placeholder="Mail"/>
                     <br/>
                     <br/>
-                    <p:inputText id="mail" placeholder="Mail"/>
+                    <p:inputText id="mdp" value="#{gestionClients.compte.pwd}" placeholder="Mot de passe"/>
                     <br/>
                     <br/>
-                    <p:inputText id="mdp" placeholder="Mot de passe"/>
-                    <br/>
-                    <br/>
-                    <p:commandButton value="Enregistrer" id="save"/>
+                    <p:commandButton value="Enregistrer" actionListener="#{gestionClients.addClient()}"/>
                 </h:form>
             </p:layoutUnit>
 

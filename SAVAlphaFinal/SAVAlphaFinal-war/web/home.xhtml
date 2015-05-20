@@ -3,17 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Accueil</title>
     </h:head>
     <h:body>
-        <h:form>  
+        <h:form>
 
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" style="min-height: 70px">
                     <ui:insert name="header">
-                        <ui:include src="/template/header.xhtml"/>
+                        <c:choose>
+                            <c:when test="${empty isLogged}">
+                                <ui:include src="/template/header.xhtml"/>
+                            </c:when>
+                            <c:otherwise>
+                                <ui:include src="/template/headerco.xhtml"/>
+                            </c:otherwise>
+                        </c:choose>
                     </ui:insert>
                 </p:layoutUnit>
 
@@ -21,39 +30,47 @@
                     <p:panel>
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Categorie : " />
-                            <p:selectOneMenu style="width:150px">
+                            <p:selectOneMenu var="cat" value="#{gestionProduitHome.categorie}" style="width:150px">
+                                <p:ajax listener="#{gestionProduitHome.onCategorieChange()}" update="mar"/>
+                                <f:selectItem itemLabel="Choisir categorie" itemValue=""/>
+                                <f:selectItems value="#{gestionProduitHome.categories}"/>
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Marque : " />
-                            <p:selectOneMenu style="width:150px">
+                            <p:selectOneMenu id="mar" var="mar" value="marque" style="width:150px" disabled="false">
+                                             <f:selectItem itemLabel="Choisir marque" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{gestionProduitHome.marques}"/>
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="Model : " />
+                            <p:outputLabel id="mod" value="Model : " />
                             <p:selectOneMenu style="width:150px">
+                                <f:selectItem itemLabel="Choisir modele" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{gestionProduitHome.modeles}"/>
                             </p:selectOneMenu>
+
                         </h:panelGrid>
                     </p:panel>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    <p:dataTable>
+                    <p:dataTable var="item" value="#{gestionProduitHome.prod}">
                         <p:column headerText="Categorie">
-                            <h:outputText value="#{car.id}" />
+                            <h:outputText value="#{item.categorie}" />
                         </p:column>
 
                         <p:column headerText="Marque">
-                            <h:outputText value="#{car.year}" />
+                            <h:outputText value="#{item.marque}" />
                         </p:column>
 
                         <p:column headerText="Modele">
-                            <h:outputText value="#{car.brand}" />
+                            <h:outputText value="#{item.modele}" />
                         </p:column>
 
                         <p:column headerText="Forfait">
-                            <h:outputText value="#{car.color}" />
+                            <h:outputText value="#{item.categorie}" />
                         </p:column>
                     </p:dataTable>
-                    
+
                     <p:commandButton value="Valider" style="float: right"/>
                     <p:commandButton value="Reinitialiser" style="float: right"/>
                 </p:layoutUnit>

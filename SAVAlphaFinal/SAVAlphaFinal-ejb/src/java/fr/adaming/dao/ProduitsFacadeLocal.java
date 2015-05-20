@@ -43,7 +43,7 @@ public interface ProduitsFacadeLocal {
     
     public List<String> findMarquesByCategorie(String categorie);
     
-    public List<String> findModelesByMarque(String marque);
+    public List<String> findModelesByMarqueAndCategorie(String categorie, String marque);
     
     public Collection<Garanties> findGarantiesByProduit(int id_produit);
     

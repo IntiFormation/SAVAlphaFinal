@@ -48,8 +48,8 @@ public class ControllerApp implements IReparationApp, IReparationClient,
     }
 
     @Override
-    public List<String> choisirMarqueProduit(String marque) {
-        return produit.findModelesByMarque(marque);
+    public List<String> choisirMarqueProduit(String categorie, String marque) {
+        return produit.findModelesByMarqueAndCategorie(categorie, marque);
     }
 
     @Override

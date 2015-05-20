@@ -73,9 +73,10 @@ public class ProduitsFacade extends AbstractFacade<Produits> implements Produits
     }
 
     @Override
-    public List<String> findModelesByMarque(String marque) {
+    public List<String> findModelesByMarqueAndCategorie(String categorie, String marque) {
 
-        Query query = em.createNamedQuery("Produits.findModelesByMarque");
+        Query query = em.createNamedQuery("Produits.findModelesByMarqueAndCategorie");
+        query.setParameter("categorie", categorie);
         query.setParameter("marque", marque);
         return query.getResultList();
     }
