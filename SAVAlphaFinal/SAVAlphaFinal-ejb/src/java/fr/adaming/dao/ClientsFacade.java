@@ -9,28 +9,21 @@ import fr.adaming.models.Clients;
 import fr.adaming.models.CltProdGarVend;
 import fr.adaming.models.Garanties;
 import fr.adaming.models.Produits;
-import fr.adaming.models.Reparations;
 import java.util.Collection;
 import java.util.LinkedList;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
- * @author INTI-0205
+ * @author INTI-0215
  */
 @Stateless
 public class ClientsFacade extends AbstractFacade<Clients> implements ClientsFacadeLocal {
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
-    
-    @EJB
-    ProduitsFacadeLocal produitsDao;
-    
-    @EJB
-    GarantiesFacadeLocal garantiesDao;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -40,25 +33,43 @@ public class ClientsFacade extends AbstractFacade<Clients> implements ClientsFac
     public ClientsFacade() {
         super(Clients.class);
     }
+
+//    @Override
+//    public Collection<Produits> findProduitsByClient(int id_client) {
+//        Collection<CltProdGarVend> tmp = this.find(id_client).getCltProdGarVendCollection();
+//        Collection<Produits> produits = new LinkedList<>();
+//        for (CltProdGarVend t : tmp) {
+//            produits.add(produitsDao.find(t.getIdProduit()));
+//        }
+//        return produits;
+//    }
+//
+//    @Override
+//    public Collection<Garanties> findGarantiesByClient(int id_client) {
+//        Collection<CltProdGarVend> tmp = this.find(id_client).getCltProdGarVendCollection();
+//        Collection<Garanties> garanties = new LinkedList<>();
+//        for (CltProdGarVend t : tmp) {
+//            garanties.add(garantiesDao.find(t.getIdGarantie()));
+//        }
+//        return garanties;
+//    }
     
     @Override
-    public Collection<Produits> findProduitsByClient(int id_client) {
-        Collection<CltProdGarVend> tmp = this.find(id_client).getCltProdGarVendCollection();
-        Collection<Produits> produits = new LinkedList<>();
-        for (CltProdGarVend t : tmp) {
-            produits.add(produitsDao.find(t.getIdProduit()));
-        }
-        return produits;
+    public Integer getIdAdresse(Integer num, String voie, String code){
+        Query query = em.createQuery("SELECT a.idAdresse FROM Adresses a WHERE a.numero = :numero AND a.nomVoie = :nomVoie AND a.codePostal = :codePostal");
+        query.setParameter("numero", num);
+        query.setParameter("nomVoie", voie);
+        query.setParameter("codePostal", code);
+        
+        return (Integer) query.getSingleResult();
     }
-
+    
     @Override
-    public Collection<Garanties> findGarantiesByClient(int id_client) {
-        Collection<CltProdGarVend> tmp = this.find(id_client).getCltProdGarVendCollection();
-        Collection<Garanties> garanties = new LinkedList<>();
-        for (CltProdGarVend t : tmp) {
-            garanties.add(garantiesDao.find(t.getIdGarantie()));
-        }
-        return garanties;
+    public Integer getIdCompte (String login){
+        Query query = em.createNamedQuery("Comptes.findByLogin");
+        query.setParameter("login", login);
+        
+        return (Integer) query.getSingleResult();
     }
-
+    
 }

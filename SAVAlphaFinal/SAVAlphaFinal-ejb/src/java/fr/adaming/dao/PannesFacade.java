@@ -18,6 +18,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PannesFacade extends AbstractFacade<Pannes> implements PannesFacadeLocal {
+
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
@@ -29,22 +30,20 @@ public class PannesFacade extends AbstractFacade<Pannes> implements PannesFacade
     public PannesFacade() {
         super(Pannes.class);
     }
-    
+
     @Override
-    public List<Pannes> getPannesByProduit(String idProduit)
-    {
-        List<Pannes> pannes = null;
-        Query query1 = em.createQuery("SELECT pp FROM prod_panne pp WHERE id_produit = : idProduit");
-        query1.setParameter("idProduit", idProduit);
-        List<Integer> idPannes = (List<Integer>) query1.getResultList();
-        
-        for (int i = 0; i < idPannes.size(); i++) {
-            int idPanne = idPannes.get(i);
-            Query query = em.createNamedQuery("Pannes.findByIdPanne");
-            query.setParameter("idPanne", idPanne);
-            Pannes panne = (Pannes) query.getSingleResult();            
-            pannes.add(panne);
-        }
-        return pannes;
+    public List<Pannes> findAll() {
+        Query query = em.createNamedQuery("Pannes.findAll");
+        return query.getResultList();
     }
+
+    @Override
+    public Pannes find(Object id) {
+        Query query = em.createNamedQuery("Pannes.findByIdPanne");
+        query.setParameter("idPanne", id);
+        return (Pannes) query.getSingleResult();
+    }
+
+
+
 }

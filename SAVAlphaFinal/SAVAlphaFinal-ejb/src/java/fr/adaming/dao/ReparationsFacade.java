@@ -5,12 +5,11 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Pannes;
 import fr.adaming.models.Reparations;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
@@ -18,6 +17,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class ReparationsFacade extends AbstractFacade<Reparations> implements ReparationsFacadeLocal {
+
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
@@ -31,10 +31,22 @@ public class ReparationsFacade extends AbstractFacade<Reparations> implements Re
     }
 
     @Override
-    public List<Reparations> findByReparateur(int id_reparateur) {
-        Query query = em.createNamedQuery("Reparations.findByReparateur");
-        query.setParameter("idReparateur", id_reparateur);
-        return query.getResultList();
+    public String getEtat(Integer idReparation) {
+        return this.find(idReparation).getEtat();
     }
-    
+
+    @Override
+    public Integer getPayement(Integer idReparation) {
+        return this.find(idReparation).getPayee();
+    }
+
+    @Override
+    public Pannes getPanne(Integer idReparation) {
+        return this.find(idReparation).getIdPanne();
+    }
+
+    @Override
+    public String getDescription(Integer idReparation) {
+        return this.find(idReparation).getDescription();
+    }
 }

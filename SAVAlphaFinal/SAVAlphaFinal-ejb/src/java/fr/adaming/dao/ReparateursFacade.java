@@ -5,7 +5,10 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Adresses;
 import fr.adaming.models.Reparateurs;
+import fr.adaming.models.Reparations;
+import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +31,18 @@ public class ReparateursFacade extends AbstractFacade<Reparateurs> implements Re
         super(Reparateurs.class);
     }
     
+    @Override
+    public Integer getNbReparations(Integer idReparateur){        
+        return this.find(idReparateur).getNbReparation();
+    }
+    
+    @Override
+    public Adresses getAdresse(Integer idReparateur) {        
+        return this.find(idReparateur).getIdAdresse();
+    }
+    
+    @Override
+    public Collection<Reparations> getReparations(Integer idReparateur){
+        return this.find(idReparateur).getReparationsCollection();
+    }
 }

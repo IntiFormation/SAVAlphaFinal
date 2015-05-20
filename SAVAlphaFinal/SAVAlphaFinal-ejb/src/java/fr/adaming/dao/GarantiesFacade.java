@@ -6,12 +6,9 @@
 package fr.adaming.dao;
 
 import fr.adaming.models.Garanties;
-import fr.adaming.models.Produits;
-import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
@@ -19,7 +16,6 @@ import javax.persistence.Query;
  */
 @Stateless
 public class GarantiesFacade extends AbstractFacade<Garanties> implements GarantiesFacadeLocal {
-
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
@@ -31,5 +27,5 @@ public class GarantiesFacade extends AbstractFacade<Garanties> implements Garant
     public GarantiesFacade() {
         super(Garanties.class);
     }
-
+    
 }

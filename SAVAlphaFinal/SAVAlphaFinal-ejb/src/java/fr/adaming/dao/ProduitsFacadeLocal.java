@@ -27,6 +27,8 @@ public interface ProduitsFacadeLocal {
 
     Produits find(Object id);
 
+    List<Produits> findAll();
+
     List<Produits> findRange(int[] range);
 
     int count();
@@ -34,13 +36,13 @@ public interface ProduitsFacadeLocal {
     List<Produits> getByCategorie(String categorie);
 
     List<Produits> getByCategorieAndMarque(String categorie, String marque);
-    
+
     List<String> getCategorie();
-    
+
     List<String> getMarqueByCategorie(String categorie);
-    
-    public Collection<Garanties> findGarantiesByProduit(int id_produit);
-    
-    public Collection<Pannes> findPannesByProduit(int id_produit);
-    
+
+    Collection<Pannes> getPannes(int id);
+
+    Collection<Garanties> getGaranties(int id);
+
 }

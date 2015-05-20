@@ -9,7 +9,6 @@ import fr.adaming.models.Comptes;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
@@ -27,14 +26,6 @@ public class ComptesFacade extends AbstractFacade<Comptes> implements ComptesFac
 
     public ComptesFacade() {
         super(Comptes.class);
-    }
-
-    @Override
-    public boolean isValid(String login, String pwd) {
-        Query query = em.createNamedQuery("Comptes.findByLogin");
-        query.setParameter("login", login);
-        String real_pwd = query.getSingleResult().toString();
-        return real_pwd.equals(pwd);
     }
     
 }

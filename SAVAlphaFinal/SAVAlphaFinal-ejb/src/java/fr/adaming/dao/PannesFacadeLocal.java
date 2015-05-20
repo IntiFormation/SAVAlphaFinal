@@ -29,7 +29,6 @@ public interface PannesFacadeLocal {
     List<Pannes> findRange(int[] range);
 
     int count();
-    
-    List<Pannes> getPannesByProduit(String idProduit);
+
     
 }

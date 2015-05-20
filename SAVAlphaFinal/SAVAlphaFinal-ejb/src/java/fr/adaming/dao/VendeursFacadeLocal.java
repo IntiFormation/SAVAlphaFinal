@@ -5,7 +5,10 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Adresses;
+import fr.adaming.models.Garanties;
 import fr.adaming.models.Vendeurs;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +32,9 @@ public interface VendeursFacadeLocal {
     List<Vendeurs> findRange(int[] range);
 
     int count();
+    
+    Collection<Garanties> getGaranties(Integer idVendeur);
+    
+    Adresses getAdresse(Integer idVendeur);
     
 }

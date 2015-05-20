@@ -30,6 +30,4 @@ public interface ComptesFacadeLocal {
 
     int count();
     
-    public boolean isValid(String login, String pwd);
-    
 }
