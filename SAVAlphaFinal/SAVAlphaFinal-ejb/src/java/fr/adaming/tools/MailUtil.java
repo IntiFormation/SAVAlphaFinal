@@ -22,7 +22,7 @@ public class MailUtil {
     private static final boolean DEBUG = true;
 
     private static final String SMTP_HOST = "smtp.orange.fr";
-    private static final String MAIL_FROM = "flamby@flamby.fr";
+    private static final String MAIL_FROM = "sav.server@alpha.fr";
     private static final String MAIL_HEADER = "MaillingApplication";
 
     private static Properties getProperties() {

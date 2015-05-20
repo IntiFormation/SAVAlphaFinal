@@ -2,29 +2,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         Hello from Facelets
         <h:form>
-            <h:commandButton value="TEST" action="#{daoTest.appTest()}" />
+            <p:selectBooleanCheckbox value="#{gestionReparateur.colisRecu}">
+                <p:ajax listener="#{gestionReparateur.majEtat(event)}"/>
+            </p:selectBooleanCheckbox>
+            <h:outputText value="#{gestionReparateur.colisRecu}" />
         </h:form>
-        <h:dataTable value="#{daoTest.garanties}" var="gar">
-            <h:column>
-                <f:facet name="header">ID</f:facet>
-                <h:outputText id="id" value="#{gar.idGarantie}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">DUREE</f:facet>
-                <h:outputText id="duree" value="#{gar.duree}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">COUT</f:facet>
-                <h:outputText id="cout" value="#{gar.cout}" />
-            </h:column>
-        </h:dataTable>
     </h:body>
 </html>
 

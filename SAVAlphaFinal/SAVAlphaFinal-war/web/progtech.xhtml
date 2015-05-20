@@ -23,28 +23,36 @@
                         </p:column>
 
                         <p:column headerText="Colis reçu">
-                            <p:selectBooleanCheckbox/>
+                            <p:selectBooleanCheckbox id="colis_recu" value="#{gestionReparateur.colisRecu}">
+                                <p:ajax listener="#{gestionReparateur.majEtat(event)}"/>
+                            </p:selectBooleanCheckbox>
                         </p:column>
 
                         <p:column headerText="Devis effectué">
-                            <p:selectBooleanCheckbox/>
+                            <p:selectBooleanCheckbox id="devis_effectue" value="value="#{gestionReparateur.devisEffectue}">
+                                <p:ajax listener="#{gestionReparateur.majEtat(event)}"/>
+                            </p:selectBooleanCheckbox>
                         </p:column>
 
-                        <p:column headerText="Note payé">
+                        <p:column headerText="Soldé">
                             <h:outputText value="#{car.color}" />
                         </p:column>
-                        
+
                         <p:column headerText="Réparation effectué">
-                            <p:selectBooleanCheckbox/>
+                            <p:selectBooleanCheckbox id="reparation_effectue" value="value="#{gestionReparateur.produitRepare}">
+                                <p:ajax listener="#{gestionReparateur.majEtat(event)}"/>
+                            </p:selectBooleanCheckbox>
                         </p:column>
-                        
-                        <p:column headerText="Colis envoyé">
-                            <p:selectBooleanCheckbox/>
+
+                        <p:column headerText="Colis renvoyé">
+                            <p:selectBooleanCheckbox id="colis_renvoye" value="value="#{gestionReparateur.colisRenvoye}">
+                                <p:ajax listener="#{gestionReparateur.majEtat(event)}"/>
+                            </p:selectBooleanCheckbox>
                         </p:column>
-                        
+
                     </p:dataTable>
                 </p:layoutUnit>
-                
+
                 <p:layoutUnit position="south" minSize="250">
                     <p:dataTable>
                         <p:column headerText="Numero facture du client">
@@ -62,15 +70,15 @@
                         <p:column headerText="Adresse">
                             <h:outputText value="#{car.id}" />
                         </p:column>
-                        
-                        <p:column headerText="Payé">
-                            <p:selectBooleanCheckbox/>
+
+                        <p:column headerText="Soldé">
+                            <p:selectBooleanCheckbox />
                         </p:column>
-                        
+
                         <p:column headerText="Supprimer">
                             <p:commandButton value="Supprimer"/>
                         </p:column>
-                        
+
                     </p:dataTable>
                 </p:layoutUnit>
             </p:layout>

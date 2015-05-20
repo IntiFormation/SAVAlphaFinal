@@ -26,6 +26,7 @@ public class GestionAdresse implements Serializable{
 
     @EJB
     private AdressesFacade adresseFacade;
+    
 
     /**
      * Creates a new instance of GestionAdresse

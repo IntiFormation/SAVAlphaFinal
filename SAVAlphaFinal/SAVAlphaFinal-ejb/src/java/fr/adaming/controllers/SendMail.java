@@ -14,36 +14,22 @@ import org.apache.log4j.Logger;
  * @author INTI-0205
  */
 public class SendMail {
-
-    private Mail mailForm;
     
     private static final Logger LOG = Logger.getLogger(SendMail.class.getName());
-    
-
-    /**
-     * Se déclenche à chaque fois qu'on arrive sur la page
-     *
-     * @return a mail
-     */
-    public Mail getModel() {
-        mailForm = new Mail();
-        return mailForm;
-    }
-
 
     public boolean execute(Mail mail) {
 
         LOG.debug("Entering...");
-
-        String subject = mailForm.getSubject();
-        String message = mailForm.getMessage();
+        
+        String subject = mail.getSubject();
+        String message = mail.getMessage();
         
         try {
             LOG.debug("Trying to send message...");
-            if (mailForm.getMailTo().contains(";")) {
-                MailUtil.sendMail(mailForm.getMailTo().split(";"), subject, message);
+            if (mail.getMailTo().contains(";")) {
+                MailUtil.sendMail(mail.getMailTo().split(";"), subject, message);
             } else {
-                MailUtil.sendMail(mailForm.getMailTo(), subject, message);
+                MailUtil.sendMail(mail.getMailTo(), subject, message);
             }
             LOG.debug("Message sent !");
         } catch (Exception e) {
