@@ -5,7 +5,10 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Adresses;
 import fr.adaming.models.Reparateurs;
+import fr.adaming.models.Reparations;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +32,9 @@ public interface ReparateursFacadeLocal {
     List<Reparateurs> findRange(int[] range);
 
     int count();
+    
+    public Adresses findAdresse(Integer idReparateur);
+    
+    public Collection<Reparations> findReparationsByReparateur(int id_reparateur);
     
 }

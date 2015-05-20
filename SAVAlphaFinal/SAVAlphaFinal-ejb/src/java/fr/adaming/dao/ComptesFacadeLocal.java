@@ -32,4 +32,6 @@ public interface ComptesFacadeLocal {
     
     public boolean isValid(String login, String pwd);
     
+    public Integer findIdCompteByLogin(String login);
+    
 }

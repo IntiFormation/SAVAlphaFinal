@@ -17,6 +17,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class ComptesFacade extends AbstractFacade<Comptes> implements ComptesFacadeLocal {
+
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
@@ -36,5 +37,13 @@ public class ComptesFacade extends AbstractFacade<Comptes> implements ComptesFac
         String real_pwd = query.getSingleResult().toString();
         return real_pwd.equals(pwd);
     }
-    
+
+    @Override
+    public Integer findIdCompteByLogin(String login) {
+
+        Query query = em.createNamedQuery("Comptes.findByLogin");
+        query.setParameter("login", login);
+        return (Integer) query.getSingleResult();
+    }
+
 }

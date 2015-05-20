@@ -31,8 +31,6 @@ public class ControllerApp implements IReparationApp, IReparationClient,
     @EJB
     private ProduitsFacadeLocal produit;
     
-    @EJB
-    private CltProdGarVendFacadeLocal suivi;
     
     @Override
     public boolean majEtat(int idReparation, String etat, Date date) {
@@ -62,10 +60,6 @@ public class ControllerApp implements IReparationApp, IReparationClient,
     @Override
     public void ajouterReparation(Reparateurs reparateurs, Pannes pannes, String details,
             Date date, String etat, int payee, int idProduit, int idClient) {
-        Reparations rep = new Reparations(details, date, etat, payee, reparateurs, pannes);
-        reparation.create(rep);
-        reparation.find(rep);
-        suivi.addReparation(rep.getIdReparation(), idProduit, idClient);
     }
 
     @Override

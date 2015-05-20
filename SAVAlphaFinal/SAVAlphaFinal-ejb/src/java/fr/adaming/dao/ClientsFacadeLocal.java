@@ -8,7 +8,6 @@ package fr.adaming.dao;
 import fr.adaming.models.Clients;
 import fr.adaming.models.Garanties;
 import fr.adaming.models.Produits;
-import fr.adaming.models.Reparations;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Local;
@@ -33,9 +32,9 @@ public interface ClientsFacadeLocal {
     List<Clients> findRange(int[] range);
 
     int count();
-
+    
     public Collection<Produits> findProduitsByClient(int id_client);
     
     public Collection<Garanties> findGarantiesByClient(int id_client);
-
+    
 }

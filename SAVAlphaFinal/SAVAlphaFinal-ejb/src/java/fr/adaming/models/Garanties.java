@@ -18,7 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -37,10 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Garanties implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_garantie")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_garantie")
     private Integer idGarantie;
     @Column(name = "duree")
     private Integer duree;
@@ -52,7 +50,7 @@ public class Garanties implements Serializable {
     @ManyToMany(mappedBy = "garantiesCollection")
     private Collection<Vendeurs> vendeursCollection;
     @OneToMany(mappedBy = "idGarantie")
-    private Collection<CltProdGarVend> cltProdGarVendCollection;
+    private Collection<Achats> achatsCollection;
 
     public Garanties() {
     }
@@ -104,12 +102,12 @@ public class Garanties implements Serializable {
     }
 
     @XmlTransient
-    public Collection<CltProdGarVend> getCltProdGarVendCollection() {
-        return cltProdGarVendCollection;
+    public Collection<Achats> getAchatsCollection() {
+        return achatsCollection;
     }
 
-    public void setCltProdGarVendCollection(Collection<CltProdGarVend> cltProdGarVendCollection) {
-        this.cltProdGarVendCollection = cltProdGarVendCollection;
+    public void setAchatsCollection(Collection<Achats> achatsCollection) {
+        this.achatsCollection = achatsCollection;
     }
 
     @Override

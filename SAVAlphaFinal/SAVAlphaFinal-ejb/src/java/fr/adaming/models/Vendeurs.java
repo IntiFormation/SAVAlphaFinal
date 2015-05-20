@@ -21,7 +21,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -37,21 +36,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vendeurs.findAll", query = "SELECT v FROM Vendeurs v"),
     @NamedQuery(name = "Vendeurs.findByIdVendeur", query = "SELECT v FROM Vendeurs v WHERE v.idVendeur = :idVendeur"),
     @NamedQuery(name = "Vendeurs.findByNom", query = "SELECT v FROM Vendeurs v WHERE v.nom = :nom"),
-    @NamedQuery(name = "Vendeurs.findByMail", query = "SELECT v FROM Vendeurs v WHERE v.mail = :mail")})
+    @NamedQuery(name = "Vendeurs.findIdAdresseByIdVendeur", query = "SELECT a.idAdresse FROM Adresses a WHERE a.numero = :numero AND a.nomVoie = :nomVoie AND a.codePostal = :codePostal")})
 public class Vendeurs implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_vendeur")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_vendeur")
     private Integer idVendeur;
     @Size(max = 254)
     @Column(name = "nom")
     private String nom;
-    @Size(max = 254)
-    @Column(name = "mail")
-    private String mail;
     @JoinTable(name = "vend_gar", joinColumns = {
         @JoinColumn(name = "id_vendeur", referencedColumnName = "id_vendeur")}, inverseJoinColumns = {
         @JoinColumn(name = "id_garantie", referencedColumnName = "id_garantie")})
@@ -67,7 +62,7 @@ public class Vendeurs implements Serializable {
     @ManyToOne
     private Comptes idCompte;
     @OneToMany(mappedBy = "idVendeur")
-    private Collection<CltProdGarVend> cltProdGarVendCollection;
+    private Collection<Reparations> reparationsCollection;
 
     public Vendeurs() {
     }
@@ -90,14 +85,6 @@ public class Vendeurs implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     @XmlTransient
@@ -134,12 +121,12 @@ public class Vendeurs implements Serializable {
     }
 
     @XmlTransient
-    public Collection<CltProdGarVend> getCltProdGarVendCollection() {
-        return cltProdGarVendCollection;
+    public Collection<Reparations> getReparationsCollection() {
+        return reparationsCollection;
     }
 
-    public void setCltProdGarVendCollection(Collection<CltProdGarVend> cltProdGarVendCollection) {
-        this.cltProdGarVendCollection = cltProdGarVendCollection;
+    public void setReparationsCollection(Collection<Reparations> reparationsCollection) {
+        this.reparationsCollection = reparationsCollection;
     }
 
     @Override

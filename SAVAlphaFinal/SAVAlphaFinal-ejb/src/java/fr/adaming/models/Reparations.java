@@ -6,7 +6,6 @@
 package fr.adaming.models;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,14 +17,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,7 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Reparations.findAll", query = "SELECT r FROM Reparations r"),
     @NamedQuery(name = "Reparations.findByIdReparation", query = "SELECT r FROM Reparations r WHERE r.idReparation = :idReparation"),
-    @NamedQuery(name = "Reparations.findByReparateur", query = "SELECT r FROM Reparations r WHERE r.idReparateur = :idReparateur"),
     @NamedQuery(name = "Reparations.findByDescription", query = "SELECT r FROM Reparations r WHERE r.description = :description"),
     @NamedQuery(name = "Reparations.findByDateEtat", query = "SELECT r FROM Reparations r WHERE r.dateEtat = :dateEtat"),
     @NamedQuery(name = "Reparations.findByEtat", query = "SELECT r FROM Reparations r WHERE r.etat = :etat"),
@@ -47,30 +43,41 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Reparations implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_reparation")
+    private Integer idReparation;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_reparation")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idReparation;
-    @Size(max = 254)
+    @Size(min = 1, max = 254)
     @Column(name = "description")
     private String description;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "date_etat")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateEtat;
-    @Size(max = 254)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 254)
     @Column(name = "etat")
     private String etat;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "payee")
-    private Integer payee;
-    @OneToMany(mappedBy = "idReparation")
-    private Collection<CltProdGarVend> cltProdGarVendCollection;
+    private int payee;
     @JoinColumn(name = "id_reparateur", referencedColumnName = "id_reparateur")
     @ManyToOne(optional = false)
     private Reparateurs idReparateur;
     @JoinColumn(name = "id_panne", referencedColumnName = "id_panne")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Pannes idPanne;
+    @JoinColumn(name = "id_vendeur", referencedColumnName = "id_vendeur")
+    @ManyToOne
+    private Vendeurs idVendeur;
+    @JoinColumn(name = "id_achat", referencedColumnName = "id_achat")
+    @ManyToOne(optional = false)
+    private Achats idAchat;
 
     public Reparations() {
     }
@@ -79,13 +86,12 @@ public class Reparations implements Serializable {
         this.idReparation = idReparation;
     }
 
-    public Reparations(String description, Date dateEtat, String etat, Integer payee, Reparateurs idReparateur, Pannes idPanne) {
+    public Reparations(Integer idReparation, String description, Date dateEtat, String etat, int payee) {
+        this.idReparation = idReparation;
         this.description = description;
         this.dateEtat = dateEtat;
         this.etat = etat;
         this.payee = payee;
-        this.idReparateur = idReparateur;
-        this.idPanne = idPanne;
     }
 
     public Integer getIdReparation() {
@@ -120,21 +126,12 @@ public class Reparations implements Serializable {
         this.etat = etat;
     }
 
-    public Integer getPayee() {
+    public int getPayee() {
         return payee;
     }
 
-    public void setPayee(Integer payee) {
+    public void setPayee(int payee) {
         this.payee = payee;
-    }
-
-    @XmlTransient
-    public Collection<CltProdGarVend> getCltProdGarVendCollection() {
-        return cltProdGarVendCollection;
-    }
-
-    public void setCltProdGarVendCollection(Collection<CltProdGarVend> cltProdGarVendCollection) {
-        this.cltProdGarVendCollection = cltProdGarVendCollection;
     }
 
     public Reparateurs getIdReparateur() {
@@ -151,6 +148,22 @@ public class Reparations implements Serializable {
 
     public void setIdPanne(Pannes idPanne) {
         this.idPanne = idPanne;
+    }
+
+    public Vendeurs getIdVendeur() {
+        return idVendeur;
+    }
+
+    public void setIdVendeur(Vendeurs idVendeur) {
+        this.idVendeur = idVendeur;
+    }
+
+    public Achats getIdAchat() {
+        return idAchat;
+    }
+
+    public void setIdAchat(Achats idAchat) {
+        this.idAchat = idAchat;
     }
 
     @Override

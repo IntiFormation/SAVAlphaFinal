@@ -11,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author INTI-0215
+ * @author INTI-0205
  */
 @Local
 public interface PannesFacadeLocal {
@@ -29,7 +29,5 @@ public interface PannesFacadeLocal {
     List<Pannes> findRange(int[] range);
 
     int count();
-    
-    List<Pannes> getPannesByProduit(String idProduit);
     
 }

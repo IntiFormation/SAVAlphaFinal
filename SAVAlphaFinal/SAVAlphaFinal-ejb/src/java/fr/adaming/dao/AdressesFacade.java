@@ -9,6 +9,7 @@ import fr.adaming.models.Adresses;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +27,14 @@ public class AdressesFacade extends AbstractFacade<Adresses> implements Adresses
 
     public AdressesFacade() {
         super(Adresses.class);
+    }
+    
+    public Integer findIdAdresse(Integer num, String voie, String code){
+        Query query = em.createNamedQuery("Vendeurs.findIdAdresseByIdVendeur");
+        query.setParameter("numero", num);
+        query.setParameter("nomVoie", voie);
+        query.setParameter("codePostal", code);
+        return (Integer) query.getSingleResult();
     }
     
 }

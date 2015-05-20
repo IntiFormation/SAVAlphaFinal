@@ -20,7 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -35,25 +34,17 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Reparateurs.findAll", query = "SELECT r FROM Reparateurs r"),
     @NamedQuery(name = "Reparateurs.findByIdReparateur", query = "SELECT r FROM Reparateurs r WHERE r.idReparateur = :idReparateur"),
-    @NamedQuery(name = "Reparateurs.findByNom", query = "SELECT r FROM Reparateurs r WHERE r.nom = :nom"),
-    @NamedQuery(name = "Reparateurs.findByNbReparation", query = "SELECT r FROM Reparateurs r WHERE r.nbReparation = :nbReparation"),
-    @NamedQuery(name = "Reparateurs.findByMail", query = "SELECT r FROM Reparateurs r WHERE r.mail = :mail")})
+    @NamedQuery(name = "Reparateurs.findByNom", query = "SELECT r FROM Reparateurs r WHERE r.nom = :nom")})
 public class Reparateurs implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_reparateur")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_reparateur")
     private Integer idReparateur;
     @Size(max = 254)
     @Column(name = "nom")
     private String nom;
-    @Column(name = "nb_reparation")
-    private Integer nbReparation;
-    @Size(max = 254)
-    @Column(name = "mail")
-    private String mail;
     @JoinColumn(name = "id_adresse", referencedColumnName = "id_adresse")
     @ManyToOne
     private Adresses idAdresse;
@@ -84,22 +75,6 @@ public class Reparateurs implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public Integer getNbReparation() {
-        return nbReparation;
-    }
-
-    public void setNbReparation(Integer nbReparation) {
-        this.nbReparation = nbReparation;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     public Adresses getIdAdresse() {

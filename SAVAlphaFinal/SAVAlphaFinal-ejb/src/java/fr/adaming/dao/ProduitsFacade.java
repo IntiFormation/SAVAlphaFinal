@@ -17,11 +17,10 @@ import javax.persistence.Query;
 
 /**
  *
- * @author INTI-0215
+ * @author INTI-0205
  */
 @Stateless
 public class ProduitsFacade extends AbstractFacade<Produits> implements ProduitsFacadeLocal {
-
     @PersistenceContext(unitName = "SAVAlphaFinal-ejbPU")
     private EntityManager em;
 
@@ -32,9 +31,8 @@ public class ProduitsFacade extends AbstractFacade<Produits> implements Produits
 
     public ProduitsFacade() {
         super(Produits.class);
-
     }
-
+    
     @Override
     public List<Produits> findByCategorie(String categorie) {
 
@@ -86,10 +84,9 @@ public class ProduitsFacade extends AbstractFacade<Produits> implements Produits
     public Collection<Garanties> findGarantiesByProduit(int id_produit) {
         return this.find(id_produit).getGarantiesCollection();
     }
-
+    
     @Override
-    public Collection<Pannes> findPannesByProduit(int id_produit) {
-        return this.find(id_produit).getPannesCollection();
+    public Collection<Pannes> findPannesByProduit(String idProduit) {
+        return this.find(idProduit).getPannesCollection();
     }
-
 }

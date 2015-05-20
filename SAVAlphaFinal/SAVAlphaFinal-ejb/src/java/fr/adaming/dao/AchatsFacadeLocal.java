@@ -5,7 +5,7 @@
  */
 package fr.adaming.dao;
 
-import fr.adaming.models.Garanties;
+import fr.adaming.models.Achats;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author INTI-0205
  */
 @Local
-public interface GarantiesFacadeLocal {
+public interface AchatsFacadeLocal {
 
-    void create(Garanties garanties);
+    void create(Achats achats);
 
-    void edit(Garanties garanties);
+    void edit(Achats achats);
 
-    void remove(Garanties garanties);
+    void remove(Achats achats);
 
-    Garanties find(Object id);
+    Achats find(Object id);
 
-    List<Garanties> findAll();
+    List<Achats> findAll();
 
-    List<Garanties> findRange(int[] range);
+    List<Achats> findRange(int[] range);
 
     int count();
     

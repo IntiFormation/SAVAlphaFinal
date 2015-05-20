@@ -5,9 +5,9 @@
  */
 package fr.adaming.dao;
 
+import fr.adaming.models.Pannes;
 import fr.adaming.models.Reparations;
 import java.util.Date;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,14 +30,27 @@ public class ReparationsFacade extends AbstractFacade<Reparations> implements Re
     public ReparationsFacade() {
         super(Reparations.class);
     }
-
+    
     @Override
-    public List<Reparations> findByReparateur(int id_reparateur) {
-        Query query = em.createNamedQuery("Reparations.findByReparateur");
-        query.setParameter("idReparateur", id_reparateur);
-        return query.getResultList();
+    public String findEtat(Integer idReparation) {
+        return this.find(idReparation).getEtat();
     }
 
+    @Override
+    public Integer findPayement(Integer idReparation) {
+        return this.find(idReparation).getPayee();
+    }
+
+    @Override
+    public Pannes findPanne(Integer idReparation) {
+        return this.find(idReparation).getIdPanne();
+    }
+
+    @Override
+    public String findDescription(Integer idReparation) {
+        return this.find(idReparation).getDescription();
+    }
+    
     @Override
     public boolean updatePayee(int p, int idReparation) {
         Query query = em.createNamedQuery("Reparations.updatePayee");
