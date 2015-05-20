@@ -37,4 +37,6 @@ public interface ReparateursFacadeLocal {
     
     public Collection<Reparations> findReparationsByReparateur(int id_reparateur);
     
+    public Reparateurs findByIdCompte(int idCompte);
+    
 }

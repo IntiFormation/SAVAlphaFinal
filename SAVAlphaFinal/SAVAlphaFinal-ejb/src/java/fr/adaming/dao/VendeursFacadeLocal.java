@@ -39,4 +39,6 @@ public interface VendeursFacadeLocal {
     
     Adresses findAdresseByVendeur(Integer idVendeur);
     
+    Vendeurs findByIdCompte(int idCompte);
+    
 }

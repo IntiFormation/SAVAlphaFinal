@@ -29,6 +29,7 @@ public class AdressesFacade extends AbstractFacade<Adresses> implements Adresses
         super(Adresses.class);
     }
     
+    @Override
     public Integer findIdAdresse(Integer num, String voie, String code){
         Query query = em.createNamedQuery("Vendeurs.findIdAdresseByIdVendeur");
         query.setParameter("numero", num);

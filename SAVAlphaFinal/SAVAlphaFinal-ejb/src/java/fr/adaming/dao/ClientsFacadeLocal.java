@@ -37,4 +37,6 @@ public interface ClientsFacadeLocal {
     
     public Collection<Garanties> findGarantiesByClient(int id_client);
     
+    public Clients findByIdCompte(int idCompte);
+    
 }
