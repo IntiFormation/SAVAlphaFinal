@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.adaming.controllers;
+package fr.adaming.tools;
 
 import fr.adaming.models.Mail;
 import fr.adaming.tools.MailUtil;
@@ -17,7 +17,7 @@ public class SendMail {
     
     private static final Logger LOG = Logger.getLogger(SendMail.class.getName());
 
-    public boolean execute(Mail mail) {
+    public static boolean execute(Mail mail) {
 
         LOG.debug("Entering...");
         

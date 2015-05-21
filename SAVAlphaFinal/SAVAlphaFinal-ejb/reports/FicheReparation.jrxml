@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FicheReparation" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6bd0e95c-1cdb-4a66-8c17-0eaf155d17ce">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="143"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="modeleProduit" class="java.lang.String">
+		<fieldDescription><![CDATA[SELECT produits.`modele` FROM `produits` produits
+    WHERE id_produit=(SELECT achats.`id_produit` FROM `achats` achats WHERE 
+id_achat = (SELECT reparations.`id_achat` FROM `reparations` reparations WHERE 
+id_reparation = 1))]]></fieldDescription>
+	</field>
+	<field name="marqueProduit" class="java.lang.String">
+		<fieldDescription><![CDATA[SELECT produits.`marque` FROM `produits` produits
+    WHERE id_produit=(SELECT achats.`id_produit` FROM `achats` achats WHERE 
+id_achat = (SELECT reparations.`id_achat` FROM `reparations` reparations WHERE 
+id_reparation = 1))]]></fieldDescription>
+	</field>
+	<field name="nomClient" class="java.lang.String"/>
+	<field name="prenomClient" class="java.lang.String"/>
+	<field name="adresseClient" class="java.lang.String"/>
+	<field name="nomReparateur" class="java.lang.String"/>
+	<field name="nomReparation" class="java.lang.String"/>
+	<field name="detailsReparation" class="java.lang.String"/>
+	<field name="coutReparation" class="java.lang.String"/>
+	<field name="adresseReparateur" class="java.lang.String"/>
+	<group name="marqueProduit">
+		<groupExpression><![CDATA[$F{marqueProduit}]]></groupExpression>
+	</group>
+	<group name="modeleProduit">
+		<groupExpression><![CDATA[$F{modeleProduit}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="129" y="0" width="206" height="34" uuid="67404800-896f-4664-9ee8-cfaffb4a9f9b"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{marqueProduit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="0" width="220" height="34" uuid="02a209e2-2e47-405f-ba79-996e70b8bf68"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modeleProduit}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="100" height="20" uuid="e35fd536-3560-420f-b1df-0a0aeb603761"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="996733b6-5dc3-40e3-a546-77e60c946dc6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="a4f96009-dbce-46ac-a9c3-1ad3bafe66e9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prenomClient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="582f79bf-ac2e-49fd-92e7-cf7289b67c38"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{adresseClient}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="c7ef5ab4-c017-4461-9539-6e4d70a26b76"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomReparateur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="122" height="20" uuid="33c84cd3-833b-406b-9c1b-8f26431d6873"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{adresseReparateur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="41" width="140" height="20" uuid="db64426f-c34c-47f6-bed9-003dbf4290c4"/>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomReparation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="125" uuid="14e7583b-c334-4929-8ff2-34d22a7dd5ac"/>
+				<textFieldExpression><![CDATA[$F{detailsReparation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="b41d9eb1-e607-4648-b98a-674c3cdfc5fd"/>
+				<textFieldExpression><![CDATA[$F{coutReparation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
