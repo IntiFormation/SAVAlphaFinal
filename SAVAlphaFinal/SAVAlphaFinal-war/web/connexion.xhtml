@@ -21,13 +21,13 @@
             <p:layoutUnit position="center" style="text-align: center">
                 <br/>
                 <h:form>
-                    <p:inputText id="mail" placeholder="Mail"/>
+                    <p:inputText id="mail" value="#{gestionClients.compte.login}" placeholder="Mail" />
                     <br/>
                     <br/>
-                    <p:inputText id="mdp" placeholder="Mot de passe"/>
+                    <p:inputText id="mdp" value="#{gestionClients.compte.pwd}" placeholder="Mot de passe"/>
                     <br/>
                     <br/>
-                    <p:commandButton value="Connexion" id="connexion"/>
+                    <p:commandButton value="Connexion" action="#{gestionClients.connexion()}" id="connexion" />
                     <br/>
                     <p:messages id="message" showDetail="true" autoUpdate="true" closable="true"/>
                 </h:form>

@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author INTI-0205
+ * @author INTI-0215
  */
 @Entity
 @Table(name = "comptes")
@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Comptes.findByIdCompte", query = "SELECT c FROM Comptes c WHERE c.idCompte = :idCompte"),
     @NamedQuery(name = "Comptes.findByLogin", query = "SELECT c FROM Comptes c WHERE c.login = :login"),
     @NamedQuery(name = "Comptes.findByPwd", query = "SELECT c FROM Comptes c WHERE c.pwd = :pwd"),
-    @NamedQuery(name = "Comptes.findByType", query = "SELECT c FROM Comptes c WHERE c.type = :type")})
+    @NamedQuery(name = "Comptes.findByType", query = "SELECT c FROM Comptes c WHERE c.type = :type"),
+    @NamedQuery(name = "Comptes.findIdByLogin", query = "SELECT c.idCompte FROM Comptes c WHERE c.login = :login"),
+    @NamedQuery(name = "Comptes.findTypeById", query = "SELECT c.type FROM Comptes c WHERE c.idCompte = :idCompte")})
 public class Comptes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,7 +46,7 @@ public class Comptes implements Serializable {
     @Size(max = 254)
     @Column(name = "pwd")
     private String pwd;
-    @Size(max = 254)
+    @Size(max = 45)
     @Column(name = "type")
     private String type;
 

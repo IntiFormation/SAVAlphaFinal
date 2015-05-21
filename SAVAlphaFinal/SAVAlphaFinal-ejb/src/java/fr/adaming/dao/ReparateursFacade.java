@@ -6,6 +6,7 @@
 package fr.adaming.dao;
 
 import fr.adaming.models.Adresses;
+import fr.adaming.models.Comptes;
 import fr.adaming.models.Reparateurs;
 import fr.adaming.models.Reparations;
 import java.util.Collection;
@@ -43,7 +44,7 @@ public class ReparateursFacade extends AbstractFacade<Reparateurs> implements Re
     }
     
     @Override
-    public Reparateurs findByIdCompte(int idCompte) {
+    public Reparateurs findByIdCompte(Comptes idCompte) {
         Query query = em.createNamedQuery("Reparateurs.findByIdCompte");
         query.setParameter("idCompte", idCompte);
         return (Reparateurs) query.getSingleResult();

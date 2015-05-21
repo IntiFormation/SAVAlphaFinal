@@ -6,18 +6,17 @@
 package fr.adaming.tools;
 
 import fr.adaming.models.Mail;
-import fr.adaming.tools.MailUtil;
 import org.apache.log4j.Logger;
 
 /**
  *
  * @author INTI-0205
  */
-public class SendMail {
+public class MailManager {
     
-    private static final Logger LOG = Logger.getLogger(SendMail.class.getName());
+    private static final Logger LOG = Logger.getLogger(MailManager.class.getName());
 
-    public static boolean execute(Mail mail) {
+    public static boolean send(Mail mail) {
 
         LOG.debug("Entering...");
         

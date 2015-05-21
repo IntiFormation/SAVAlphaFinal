@@ -8,14 +8,19 @@ package fr.adaming.managedBeans;
 import fr.adaming.dao.AdressesFacadeLocal;
 import fr.adaming.dao.ClientsFacadeLocal;
 import fr.adaming.dao.ComptesFacadeLocal;
+import fr.adaming.dao.ReparateursFacadeLocal;
+import fr.adaming.dao.VendeursFacadeLocal;
 import fr.adaming.models.Adresses;
 import fr.adaming.models.Clients;
 import fr.adaming.models.Comptes;
+import fr.adaming.models.Reparateurs;
+import fr.adaming.models.Vendeurs;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -26,9 +31,13 @@ import javax.inject.Named;
 @SessionScoped
 public class GestionClients implements Serializable {
 
-    private Clients client;
+    private Clients client = null;
+    private Vendeurs vendeur = null;
+    private Reparateurs reparateur = null;
     private Adresses adresse;
     private Comptes compte;
+    private Comptes compteP;
+    private boolean logged;
 
     @EJB
     private ClientsFacadeLocal clientFacade;
@@ -36,11 +45,16 @@ public class GestionClients implements Serializable {
     private AdressesFacadeLocal adresseFacade;
     @EJB
     private ComptesFacadeLocal compteFacade;
+    @EJB
+    private VendeursFacadeLocal vendeurFacade;
+    @EJB
+    private ReparateursFacadeLocal reparateurFacade;
 
     /**
      * Creates a new instance of GestionUtilisateur
      */
     public GestionClients() {
+        setCompte(new Comptes());
     }
 
     public void initClients() {
@@ -50,21 +64,24 @@ public class GestionClients implements Serializable {
     }
 
     /*public void initAdresses() {
-        setAdresse(new Adresses());
-    }
+     setAdresse(new Adresses());
+     }
 
-    public void initComptes() {
-        setCompte(new Comptes());
-    }*/
-
+     public void initComptes() {
+     setCompte(new Comptes());
+     }*/
     public void addClient() {
         try {
             client.setIdClient(1);
             clientFacade.create(client);
             adresse.setIdAdresse(1);
             adresseFacade.create(adresse);
+            client.setIdAdresse(adresseFacade.find(adresse.getIdAdresse()));
             compte.setIdCompte(1);
+            compte.setType("client");
             compteFacade.create(compte);
+            client.setIdCompte(compteFacade.find(compte.getIdCompte()));
+            clientFacade.edit(client);
             addMessage("Merci pour votre inscription", FacesMessage.SEVERITY_INFO);
         } catch (Exception ex) {
             addMessage("Erreur pendant votre inscription", FacesMessage.SEVERITY_ERROR);
@@ -72,25 +89,66 @@ public class GestionClients implements Serializable {
     }
 
     /*public void addAdresse() {
-        try {
-            adresseFacade.create(adresse);
-        } catch (Exception ex) {
-            addMessage("Erreur pendant la création de votre adresse", FacesMessage.SEVERITY_ERROR);
-        }
-    }
+     try {
+     adresseFacade.create(adresse);
+     } catch (Exception ex) {
+     addMessage("Erreur pendant la création de votre adresse", FacesMessage.SEVERITY_ERROR);
+     }
+     }
 
-    public void addCompte() {
-        try {
-            compteFacade.create(compte);
-        } catch (Exception ex) {
-            addMessage("Erreur pendant la création de votre compte", FacesMessage.SEVERITY_ERROR);
-        }
-    }*/
-
+     public void addCompte() {
+     try {
+     compteFacade.create(compte);
+     } catch (Exception ex) {
+     addMessage("Erreur pendant la création de votre compte", FacesMessage.SEVERITY_ERROR);
+     }
+     }*/
     public static void addMessage(String message, FacesMessage.Severity severity) {
         FacesMessage facesMessage = new FacesMessage(severity, message, message);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, facesMessage);
+    }
+
+    public String connexion() {
+        String page = "";
+        compteP = new Comptes();
+        System.out.println("Entering connection");
+        if (compteFacade.isValid(compte.getLogin(), compte.getPwd())) {
+            System.out.println("Compte OK");
+            compteP = compteFacade.findByLogin(compte.getLogin());
+            setLogged(true);
+
+            String type = compteFacade.findTypeCompte(compteP.getIdCompte());
+            System.out.println("Type : " + type);
+            if ("client".equals(type)) {
+                setClient(clientFacade.findByIdCompte(compteP));
+                System.out.println(client);
+                page = "/modifCompte.xhtml?faces-redirect=true";
+            }
+            if ("vendeur".equals(type)) {
+                setVendeur(vendeurFacade.findByIdCompte(compteP));
+                page = "/faces/ficheRepVendeur.xhtml?faces-redirect=true";
+            }
+            if ("reparateur".equals(type)) {
+                setReparateur(reparateurFacade.findByIdCompte(compteP));
+                page = "/faces/progtech.xhtml?faces-redirect=true";
+            }
+
+            setCompte(compteFacade.findByLogin(compteP.getLogin()));
+            compte.setPwd("");
+
+            return page;
+        } else {
+            System.err.println("Compte Pas OK");
+            System.err.println("erreur");
+            return "#";
+        }
+    }
+
+    public String deconnexion() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        setLogged(false);
+        return "/home.xhtml";
     }
 
     //Getters and setters
@@ -109,7 +167,7 @@ public class GestionClients implements Serializable {
     public void setAdresse(Adresses adresse) {
         this.adresse = adresse;
     }
-    
+
     public Comptes getCompte() {
         return compte;
     }
@@ -117,4 +175,49 @@ public class GestionClients implements Serializable {
     public void setCompte(Comptes compte) {
         this.compte = compte;
     }
+
+    public Vendeurs getVendeur() {
+        return vendeur;
+    }
+
+    public void setVendeur(Vendeurs vendeur) {
+        this.vendeur = vendeur;
+    }
+
+    public Reparateurs getReparateur() {
+        return reparateur;
+    }
+
+    public void setReparateur(Reparateurs reparateur) {
+        this.reparateur = reparateur;
+    }
+
+    public ClientsFacadeLocal getClientFacade() {
+        return clientFacade;
+    }
+
+    public AdressesFacadeLocal getAdresseFacade() {
+        return adresseFacade;
+    }
+
+    public ComptesFacadeLocal getCompteFacade() {
+        return compteFacade;
+    }
+
+    public VendeursFacadeLocal getVendeurFacade() {
+        return vendeurFacade;
+    }
+
+    public ReparateursFacadeLocal getReparateurFacade() {
+        return reparateurFacade;
+    }
+
+    public boolean isLogged() {
+        return logged;
+    }
+
+    public void setLogged(boolean logged) {
+        this.logged = logged;
+    }
+    
 }

@@ -6,6 +6,7 @@
 package fr.adaming.dao;
 
 import fr.adaming.models.Adresses;
+import fr.adaming.models.Comptes;
 import fr.adaming.models.Garanties;
 import fr.adaming.models.Vendeurs;
 import java.util.Collection;
@@ -50,7 +51,7 @@ public class VendeursFacade extends AbstractFacade<Vendeurs> implements Vendeurs
     }
 
     @Override
-    public Vendeurs findByIdCompte(int idCompte) {
+    public Vendeurs findByIdCompte(Comptes idCompte) {
         Query query = em.createNamedQuery("Vendeurs.findByIdCompte");
         query.setParameter("idCompte", idCompte);
         return (Vendeurs) query.getSingleResult();

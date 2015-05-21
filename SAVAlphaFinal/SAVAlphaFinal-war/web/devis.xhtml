@@ -47,7 +47,10 @@
                                  required="true"/>
                     <br/>
                     <br/>
-                    <p:commandButton value="Valider" id="validate"/>
+                    <p:commandButton value="Valider" id="validate" 
+                                     action="#{gestionReparateur.validerDevis()}">
+                        <p:ajax listener="#{gestionReparateur.majEtat(event)}"/>
+                    </p:commandButton> 
                 </h:form>
             </p:layoutUnit>
         </p:layout>

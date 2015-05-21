@@ -34,4 +34,10 @@ public interface ComptesFacadeLocal {
     
     public Integer findIdCompteByLogin(String login);
     
+    Comptes findByLogin(String login);
+    
+    String findTypeCompte(Integer idCompte);
+
+    
+    
 }

@@ -6,6 +6,7 @@
 package fr.adaming.dao;
 
 import fr.adaming.models.Adresses;
+import fr.adaming.models.Comptes;
 import fr.adaming.models.Reparateurs;
 import fr.adaming.models.Reparations;
 import java.util.Collection;
@@ -37,6 +38,6 @@ public interface ReparateursFacadeLocal {
     
     public Collection<Reparations> findReparationsByReparateur(int id_reparateur);
     
-    public Reparateurs findByIdCompte(int idCompte);
+    public Reparateurs findByIdCompte(Comptes idCompte);
     
 }

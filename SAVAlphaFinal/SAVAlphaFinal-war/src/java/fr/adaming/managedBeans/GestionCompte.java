@@ -5,12 +5,13 @@
  */
 package fr.adaming.managedBeans;
 
-import fr.adaming.dao.ComptesFacade;
-import fr.adaming.models.Comptes;
-import javax.ejb.EJB;
+import java.io.Serializable;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -19,29 +20,21 @@ import javax.inject.Named;
  */
 @Named(value = "gestionCompte")
 @SessionScoped
-public class GestionCompte {
-
-    private Comptes compte;
-
-    @EJB
-    private ComptesFacade compteFacade;
-
+public class GestionCompte implements Serializable{
+    
+    @Inject
+    private GestionClients gestionClients;
+    
     /**
      * Creates a new instance of GestionCompte
      */
     public GestionCompte() {
     }
 
-    public void initComptes() {
-        setCompte(new Comptes());
-    }
-
-    public void addCompte() {
-        try {
-            compteFacade.create(compte);
-        } catch (Exception ex) {
-            addMessage("Erreur pendant la création de votre compte", FacesMessage.SEVERITY_ERROR);
-        }
+    public void save() {
+        gestionClients.getAdresseFacade().edit(gestionClients.getAdresse());
+        gestionClients.getCompteFacade().edit(gestionClients.getCompte());
+        gestionClients.getClientFacade().edit(gestionClients.getClient());
     }
 
     public static void addMessage(String message, FacesMessage.Severity severity) {
@@ -50,13 +43,8 @@ public class GestionCompte {
         context.addMessage(null, facesMessage);
     }
 
-    //Getters and setters
-    public Comptes getCompte() {
-        return compte;
+    public GestionClients getGestionClients() {
+        return gestionClients;
     }
-
-    public void setCompte(Comptes compte) {
-        this.compte = compte;
-    }
-
+    
 }

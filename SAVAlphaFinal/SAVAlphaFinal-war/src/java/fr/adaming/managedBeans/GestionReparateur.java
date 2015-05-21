@@ -6,7 +6,10 @@
 package fr.adaming.managedBeans;
 
 import fr.adaming.dao.ReparationsFacadeLocal;
+import fr.adaming.models.Mail;
 import fr.adaming.tools.Etats;
+import fr.adaming.tools.MailContent;
+import fr.adaming.tools.MailManager;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -14,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.inject.Inject;
 import org.primefaces.component.selectbooleancheckbox.SelectBooleanCheckbox;
 
 /**
@@ -28,13 +32,15 @@ public class GestionReparateur implements Serializable {
     private boolean devisEffectue;
     private boolean produitRepare;
     private boolean colisRenvoye;
-    
+
     String etat;
     Date date;
-    
+
     @EJB
     ReparationsFacadeLocal reparation;
     
+    @Inject
+    GestionClients gestionClients;
 
     /**
      * Creates a new instance of GestionReparateur
@@ -48,19 +54,38 @@ public class GestionReparateur implements Serializable {
         
         Calendar currentDate = Calendar.getInstance();
         date = currentDate.getTime();
-        
-        if ("colis_recu".equals(idCheckedBox)) {
-            this.etat = Etats.PRODUIT_RECU;
-        } else if ("devis_effectue".equals(idCheckedBox)) {
-            this.etat = Etats.DEVIS_EFFECTUE;
-        } else if ("produit_repare".equals(idCheckedBox)) {
-            this.etat = Etats.PRODUIT_REPARE;
-        } else if ("colis_renvoye".equals(idCheckedBox)) {
-            this.etat = Etats.PRODUIT_RENVOYE;
+        Mail mail;
+
+        if (null != idCheckedBox) {
+            switch (idCheckedBox) {
+                case "colis_recu":
+                    this.etat = Etats.PRODUIT_RECU;
+                    mail = new Mail("mailClient", MailContent.MAJ_ETAT_SUBJ
+                            + MailContent.PRODUIT_RECU_SUBJ , MailContent.PRODUIT_RECU);
+                    MailManager.send(mail);
+                    break;
+                case "devis_effectue":
+                    this.etat = Etats.DEVIS_EFFECTUE;
+                    mail = new Mail("mailClient", MailContent.MAJ_ETAT_SUBJ
+                            + MailContent.DEVIS_EFFECTUE_SUBJ , MailContent.DEVIS_EFFECTUE);
+                    MailManager.send(mail);
+                    break;
+                case "produit_repare":
+                    this.etat = Etats.PRODUIT_REPARE;
+                    break;
+                case "colis_renvoye":
+                    this.etat = Etats.PRODUIT_RENVOYE;
+                    break;
+            }
         }
-        
+
         int idReparation = 1;
         reparation.updateEtat(etat, date, idReparation);
+    }
+    
+    public String validerDevis() {
+        setDevisEffectue(true);
+        return "/progtech.xhmtl";
     }
 
     public boolean isColisRecu() {

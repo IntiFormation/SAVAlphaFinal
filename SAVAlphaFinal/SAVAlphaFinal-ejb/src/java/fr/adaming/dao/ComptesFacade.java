@@ -8,6 +8,7 @@ package fr.adaming.dao;
 import fr.adaming.models.Comptes;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -30,20 +31,46 @@ public class ComptesFacade extends AbstractFacade<Comptes> implements ComptesFac
         super(Comptes.class);
     }
 
+//    @Override
+//    public boolean isValid(String login, String pwd) {
+//        Query query = em.createNamedQuery("Comptes.findByLogin");
+//        query.setParameter("login", login);
+//        String real_pwd = query.getSingleResult().toString();
+//        return real_pwd.equals(pwd);
+//    }
     @Override
-    public boolean isValid(String login, String pwd) {
-        Query query = em.createNamedQuery("Comptes.findByLogin");
+    public Integer findIdCompteByLogin(String login) {
+        Query query = em.createNamedQuery("Comptes.findIdByLogin");
         query.setParameter("login", login);
-        String real_pwd = query.getSingleResult().toString();
-        return real_pwd.equals(pwd);
+        return (Integer) query.getSingleResult();
     }
 
     @Override
-    public Integer findIdCompteByLogin(String login) {
+    public String findTypeCompte(Integer idCompte) {
+        Query query = em.createNamedQuery("Comptes.findTypeById");
+        query.setParameter("idCompte", idCompte);
+        return (String) query.getSingleResult();
+    }
 
+    @Override
+    public Comptes findByLogin(String login) {
         Query query = em.createNamedQuery("Comptes.findByLogin");
         query.setParameter("login", login);
-        return (Integer) query.getSingleResult();
+        return (Comptes) query.getSingleResult();
+
+    }
+
+    @Override
+    public boolean isValid(String login, String pwd) {
+        try {
+            Query query = em.createQuery("SELECT c.pwd FROM Comptes c WHERE c.login = :login ");
+            query.setParameter("login", login);
+            String pass = query.getSingleResult().toString();
+            return pass.equals(pwd);
+        } catch (NoResultException e) {
+            return false;
+        }
+
     }
 
 }

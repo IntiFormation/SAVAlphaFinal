@@ -5,6 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
         <title>Fiche de reparation</title>
     </h:head>
@@ -19,12 +20,12 @@
 
                 <p:layoutUnit position="center">
                     <h3 style="text-align: center">Vendeur</h3>
-                    <p:outputLabel value="Nom Vendeur : "/>
-                    <p:inputText placeholder="Nom"/>
+                    <p:outputLabel value="Nom : "/>
+                    <p:inputText id="vendNom" value="#{gestionVendeur.vendeur.nom}" disabled="true"/>
                     <br/>
                     <br/>
                     <p:outputLabel value="Enseigne : "/>
-                    <p:inputText placeholder="Enseigne"/>
+                    <p:inputText id="vendEns" value="#{gestionVendeur.vendeur.idEnseigne.nom}" disabled="true"/>
                 </p:layoutUnit>
 
 
@@ -47,7 +48,7 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" style="text-align: center; min-height: 210px">
-
+                    <f:event  type="preRenderView" listener="#{gestionVendeur.initClients()}"/>
                     <p:outputLabel value="Categorie : "/>
                     <p:inputText disabled="true" style="margin-right: 10px"/>
                     <p:outputLabel value="Marque : "/>
@@ -62,8 +63,8 @@
 
                     <p:inputTextarea style="alignment-adjust: central;" placeholder="Description de la panne" rows="4" cols="40" autoResize="true"/>
                     <br/>
-                    <p:commandButton value="Valider" style="margin-right: 10px; float: right"/>
-                    <p:commandButton value="annuler" style="margin-right: 10px; float: right"/>
+                    <p:commandButton value="Valider" actionListener="#{gestionClients.addClient()}" style="margin-right: 10px; float: right"/>
+                    <p:commandButton value="annuler" action="faces/home.xhtml" style="margin-right: 10px; float: right"/>
                 </p:layoutUnit>
 
             </p:layout>

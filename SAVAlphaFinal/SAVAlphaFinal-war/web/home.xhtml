@@ -16,7 +16,7 @@
                 <p:layoutUnit position="north" style="min-height: 70px">
                     <ui:insert name="header">
                         <c:choose>
-                            <c:when test="${empty isLogged}">
+                            <c:when test="${!gestionClients.logged}" >
                                 <ui:include src="/template/header.xhtml"/>
                             </c:when>
                             <c:otherwise>
