@@ -6,6 +6,7 @@
             <name>SAVAlphaFinal-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">libs.javaee-web-api-7.0.classpath</included-library>
+            <included-library dirs="200">file.reference.log4j-1.2.15.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

@@ -19,14 +19,14 @@
 
                 <p:layoutUnit position="center">
                     <h:panelGrid columns="2">
-                        <p:outputLabel value="Nom : "/>
+                        <p:outputLabel value="Nom : #{gestionClients.client.nom}"/>
                         <p:inputText disabled="true"/>
-                        <p:outputLabel value="Prenom : "/>
+                        <p:outputLabel value="Prenom : #{gestionClients.client.prenom}"/>
                         <p:inputText disabled="true"/>
                         <p:outputLabel value="Adresse : " />
-                        <p:selectOneMenu style="width:150px">
-                            <f:selectItem itemLabel="Adresse 1"/>
-                            <f:selectItem itemLabel="Adresse 2"/>
+                        <p:selectOneMenu style="width:150px" value="#{gestionClients.adresse}">
+                            <f:selectItem itemLabel="Adresse 1" itemValue="#{gestionClients.clientAdresse1}"/>
+                            <f:selectItem itemLabel="Adresse 2" itemValue="#{gestionClients.clientAdresse2}/>
                         </p:selectOneMenu>
                     </h:panelGrid>
                 </p:layoutUnit>
@@ -36,15 +36,15 @@
                     <h:panelGrid columns="2">
 
                         <p:outputLabel value="Numero de voie : "/>
-                        <p:inputText/>
-                        <p:outputLabel value="Nom de voie : "/>
-                        <p:inputText/>
+                        <p:inputText value="#{gestionClients.adresseB.numero}" placeholder="#{gestionClients.adresse.numero}" />
+                        <p:outputLabel value="Nom de voie : }"/>
+                        <p:inputText value="#{gestionClients.adresseB.nomVoie}" placeholder="#{gestionClients.adresse.nomVoie}"/>
                         <p:outputLabel value="Complement : "/>
-                        <p:inputText/>
+                        <p:inputText value="#{gestionClients.adresseB.nomVoie}" placeholder="#{gestionClients.adresse.nomVoie}"/>
                         <p:outputLabel value="Code postal : "/>
-                        <p:inputText/>
+                        <p:inputText value="#{gestionClients.adresseB.codePostal}" placeholder="#{gestionClients.adresse.codePostal}"/>
                         <p:outputLabel value="Ville : "/>
-                        <p:inputText/>
+                        <p:inputText value="#{gestionClients.adresseB.ville}" placeholder="#{gestionClients.adresse.ville}"/>
                     </h:panelGrid>
                 </p:layoutUnit>
 
@@ -64,8 +64,8 @@
                     
                     <p:inputTextarea style="alignment-adjust: central;" placeholder="Description de la panne" rows="5" cols="40" autoResize="true"/>
                     <br/>
-                    <p:commandButton value="Valider" style="margin-right: 10px; float: right"/>
-                    <p:commandButton value="annuler" style="margin-right: 10px; float: right"/>
+                    <p:commandButton value="Valider" style="margin-right: 10px; float: right" action="#{gestionClients.validerFicheRep()}"/>
+                    <p:commandButton value="annuler" style="margin-right: 10px; float: right" action="/ficherep.xhtml"/>
                 </p:layoutUnit>
 
             </p:layout>

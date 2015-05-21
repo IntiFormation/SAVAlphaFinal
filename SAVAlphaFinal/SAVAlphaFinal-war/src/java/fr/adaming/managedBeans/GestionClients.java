@@ -36,6 +36,9 @@ public class GestionClients implements Serializable {
     private Vendeurs vendeur = null;
     private Reparateurs reparateur = null;
     private Adresses adresse;
+    private Adresses adresseB;    
+    private Adresses clientAdresse1;    
+    private Adresses clientAdresse2;    
     private Comptes compte = new Comptes();
     private Comptes compteP;
 
@@ -75,8 +78,11 @@ public class GestionClients implements Serializable {
             clientFacade.create(client);
             adresse.setIdAdresse(1);
             adresseFacade.create(adresse);
+            client.setIdAdresse(adresseFacade.find(adresse.getIdAdresse()));
             compte.setIdCompte(1);
             compteFacade.create(compte);
+            client.setIdCompte(compteFacade.find(compte.getIdCompte()));
+            clientFacade.edit(client);
             addMessage("Merci pour votre inscription", FacesMessage.SEVERITY_INFO);
         } catch (Exception ex) {
             addMessage("Erreur pendant votre inscription", FacesMessage.SEVERITY_ERROR);
@@ -115,6 +121,8 @@ public class GestionClients implements Serializable {
             if ("client".equals(type)) {
                 setClient(clientFacade.findByIdCompte(compteP));
                 System.out.println(client);
+                clientAdresse1 = client.getIdAdresse();
+                clientAdresse2 = client.getIdAdresse2();
                 page = "/paiement.xhtml";
             }
             if ("vendeur".equals(type)) {
@@ -136,11 +144,17 @@ public class GestionClients implements Serializable {
     }
 
     public String deconnexion() {
-        setCompte(new Comptes());
-        setClient(new Clients());
-        setVendeur(new Vendeurs());
-        setReparateur(new Reparateurs());
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/home.xhtml";
+    }
+    
+    public String validerFicheRep() {
+        adresseB.setIdAdresse(adresse.getIdAdresse());
+        if(adresse != adresseB ) {
+            client.setIdAdresse2(adresseB);
+        }
+        
+        return "/recapitulatif.xhtml";
     }
 
     //Getters and setters
@@ -184,4 +198,29 @@ public class GestionClients implements Serializable {
         this.reparateur = reparateur;
     }
 
+    public Adresses getAdresseB() {
+        return adresseB;
+    }
+
+    public void setAdresseB(Adresses adresseB) {
+        this.adresseB = adresseB;
+    }
+
+    public Adresses getClientAdresse1() {
+        return clientAdresse1;
+    }
+
+    public void setClientAdresse1(Adresses clientAdresse1) {
+        this.clientAdresse1 = clientAdresse1;
+    }
+
+    public Adresses getClientAdresse2() {
+        return clientAdresse2;
+    }
+
+    public void setClientAdresse2(Adresses clientAdresse2) {
+        this.clientAdresse2 = clientAdresse2;
+    }
+
+    
 }

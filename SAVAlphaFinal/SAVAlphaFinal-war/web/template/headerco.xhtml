@@ -9,14 +9,15 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    
+
     <h:body>
         <ui:composition>
             <p:menubar>
                 <p:menuitem value="Suivi" url="faces/suivi.xhtml"/>
                 <p:menuitem value="Réparation" url="faces/home.xhtml"/>
                 <f:facet name="options">
-                    <p:commandButton type="button" value="Deconnexion"/>
+                    <p:menuitem style="margin-right:10px" value="Bonjour, #{gestionClients.compte.login}" url="suivi.xhtml"/>
+                    <p:commandButton type="button" value="Deconnexion" action="#{gestionClients.deconnexion()}"/>
                 </f:facet>
             </p:menubar>
         </ui:composition>

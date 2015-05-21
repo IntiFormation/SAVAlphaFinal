@@ -5,15 +5,16 @@
  */
 package fr.adaming.managedBeans;
 
+import fr.adaming.dao.ReparationsFacadeLocal;
 import fr.adaming.dao.VendeursFacadeLocal;
-import static fr.adaming.managedBeans.GestionClients.addMessage;
+import fr.adaming.models.Reparations;
 import fr.adaming.models.Vendeurs;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
+import javax.inject.Inject;
 
 /**
  *
@@ -29,26 +30,43 @@ public class GestionVendeur implements Serializable {
     @EJB
     private VendeursFacadeLocal vendeurFacade;
 
+    @Inject
+    private GestionProduitHome gestionProduitHome;
+
+    @Inject
+    private GestionClients gestionClients;
+
+    //Propriété pour récupérer le param de l'url
+    private int idVendeur;
+
     /**
      * Creates a new instance of GestionVendeur
      */
     public GestionVendeur() {
+        /*vendeur = new Vendeurs();
+         vendeur.setIdVendeur(2);
+         vendeur.setNom("Henry");
+         Enseignes enseigne = new Enseignes();
+         enseigne.setNom("Carrefour");
+         vendeur.setIdEnseigne(enseigne);*/
     }
 
     public void initVendeur() {
         setVendeur(new Vendeurs());
     }
 
-    public void addClient() {
-        try {
-            vendeur.setIdVendeur(1);
-            vendeurFacade.create(vendeur);
-            addMessage("Merci pour votre inscription", FacesMessage.SEVERITY_INFO);
-        } catch (Exception ex) {
-            addMessage("Erreur pendant votre inscription", FacesMessage.SEVERITY_ERROR);
-        }
-    }
+//    public void majReparation() {
+//        gestionProduitHome.reparationFacade.setDescription(reparation.getReparation);
+//        gestionProduitHome.reparationFacade.setVendeur(vendeur);
+//        gestionProduitHome.reparationFacade.setClient(gestionClients.getClient());
+//    }
 
+    /**
+     * Récupération d'un vendeur
+     */
+    /*public void loadVendeur() {
+     this.setVendeur(vendeurFacade.find(vendeur.getIdVendeur()));
+     }*/
     //Getters and setters
     public Vendeurs getVendeur() {
         return vendeur;
@@ -56,6 +74,14 @@ public class GestionVendeur implements Serializable {
 
     public void setVendeur(Vendeurs vendeur) {
         this.vendeur = vendeur;
+    }
+
+    public int getIdVendeur() {
+        return idVendeur;
+    }
+
+    public void setIdVendeur(int idVendeur) {
+        this.idVendeur = idVendeur;
     }
 
 }

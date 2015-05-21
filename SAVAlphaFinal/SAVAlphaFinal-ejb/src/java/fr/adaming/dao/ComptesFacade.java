@@ -8,6 +8,7 @@ package fr.adaming.dao;
 import fr.adaming.models.Comptes;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -61,10 +62,15 @@ public class ComptesFacade extends AbstractFacade<Comptes> implements ComptesFac
 
     @Override
     public boolean isValid(String login, String pwd) {
-        Query query = em.createQuery("SELECT c.pwd FROM Comptes c WHERE c.login = :login ");
-        query.setParameter("login", login);
-        String pass = query.getSingleResult().toString();
-        return pass.equals(pwd);
+        try {
+            Query query = em.createQuery("SELECT c.pwd FROM Comptes c WHERE c.login = :login ");
+            query.setParameter("login", login);
+            String pass = query.getSingleResult().toString();
+            return pass.equals(pwd);
+        } catch (NoResultException e) {
+            return false;
+        }
+
     }
 
 }

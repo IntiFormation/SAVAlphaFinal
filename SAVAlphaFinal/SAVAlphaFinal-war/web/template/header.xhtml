@@ -14,8 +14,9 @@
         <ui:composition>
             <p:menubar>
                 <p:menuitem value="Accueil" url="faces/home.xhtml"/>
-                <f:facet name="options">
-                    <p:commandButton type="button" value="Connexion"/>
+                <f:facet name="connection">
+                    
+                    <p:commandButton type="button" value="Connexion" actionListener="/connection.xhtml"/>
                 </f:facet>
             </p:menubar>
         </ui:composition>
