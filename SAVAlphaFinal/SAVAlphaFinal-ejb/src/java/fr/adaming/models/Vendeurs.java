@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vendeurs.findAll", query = "SELECT v FROM Vendeurs v"),
     @NamedQuery(name = "Vendeurs.findByIdVendeur", query = "SELECT v FROM Vendeurs v WHERE v.idVendeur = :idVendeur"),
     @NamedQuery(name = "Vendeurs.findByNom", query = "SELECT v FROM Vendeurs v WHERE v.nom = :nom"),
-    @NamedQuery(name = "Vendeurs.findIdAdresseByIdVendeur", query = "SELECT a.idAdresse FROM Adresses a WHERE a.numero = :numero AND a.nomVoie = :nomVoie AND a.codePostal = :codePostal")})
+    @NamedQuery(name = "Vendeurs.findIdAdresseByIdVendeur", query = "SELECT a.idAdresse FROM Adresses a WHERE a.numero = :numero AND a.nomVoie = :nomVoie AND a.codePostal = :codePostal"),
+    @NamedQuery(name = "Vendeurs.findByIdCompte", query = "SELECT v FROM Vendeurs v WHERE v.idCompte = :idCompte")})
 public class Vendeurs implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

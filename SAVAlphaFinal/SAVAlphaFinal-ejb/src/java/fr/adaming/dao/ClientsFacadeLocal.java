@@ -6,6 +6,7 @@
 package fr.adaming.dao;
 
 import fr.adaming.models.Clients;
+import fr.adaming.models.Comptes;
 import fr.adaming.models.Garanties;
 import fr.adaming.models.Produits;
 import java.util.Collection;
@@ -36,5 +37,7 @@ public interface ClientsFacadeLocal {
     public Collection<Produits> findProduitsByClient(int id_client);
     
     public Collection<Garanties> findGarantiesByClient(int id_client);
+    
+    public Clients findByIdCompte(Comptes idCompte);
     
 }

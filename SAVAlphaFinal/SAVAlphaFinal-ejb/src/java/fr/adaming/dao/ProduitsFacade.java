@@ -89,4 +89,12 @@ public class ProduitsFacade extends AbstractFacade<Produits> implements Produits
     public Collection<Pannes> findPannesByProduit(String idProduit) {
         return this.find(idProduit).getPannesCollection();
     }
+    
+    @Override
+    public List<String> findModelesByMarqueAndCategorie(String marque, String categorie) {
+        Query query = em.createNamedQuery("Produits.findModelesByMarqueAndCategories");
+        query.setParameter("marque", marque);
+        query.setParameter("categorie", categorie);
+        return (List<String>) query.getSingleResult();
+    }
 }

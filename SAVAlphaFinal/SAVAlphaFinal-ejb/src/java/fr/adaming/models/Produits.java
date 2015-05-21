@@ -41,9 +41,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Produits.findByTransportable", query = "SELECT p FROM Produits p WHERE p.transportable = :transportable"),
     @NamedQuery(name = "Produits.findByGarantieConstructeur", query = "SELECT p FROM Produits p WHERE p.garantieConstructeur = :garantieConstructeur"),
     @NamedQuery(name = "Produits.findByGarantieIncluse", query = "SELECT p FROM Produits p WHERE p.garantieIncluse = :garantieIncluse"),
-    @NamedQuery(name = "Produits.findAllCategories", query = "SELECT p.categorie FROM Produits p"),
-    @NamedQuery(name = "Produits.findMarquesByCategories", query = "SELECT p.marque FROM Produits p WHERE p.categorie = :categorie"),
-    @NamedQuery(name = "Produits.findModelesByMarque", query = "SELECT p.modele FROM Produits p WHERE p.marque = :marque")})
+    @NamedQuery(name = "Produits.findAllCategories", query = "SELECT p.categorie FROM Produits p GROUP BY p.categorie"),
+    @NamedQuery(name = "Produits.findMarquesByCategories", query = "SELECT p.marque FROM Produits p WHERE p.categorie = :categorie GROUP BY p.marque"),
+    @NamedQuery(name = "Produits.findModelesByMarque", query = "SELECT p.modele FROM Produits p WHERE p.marque = :marque GROUP BY p.modele"),
+    @NamedQuery(name = "Produits.findModelesByMarqueAndCategories", query = "SELECT p.modele FROM Produits p WHERE p.marque = :marque AND p.categorie = :categorie ")})
 public class Produits implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

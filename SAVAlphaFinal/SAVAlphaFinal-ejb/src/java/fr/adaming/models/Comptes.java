@@ -6,7 +6,6 @@
 package fr.adaming.models;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,15 +14,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author INTI-0205
+ * @author INTI-0215
  */
 @Entity
 @Table(name = "comptes")
@@ -32,7 +29,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Comptes.findAll", query = "SELECT c FROM Comptes c"),
     @NamedQuery(name = "Comptes.findByIdCompte", query = "SELECT c FROM Comptes c WHERE c.idCompte = :idCompte"),
     @NamedQuery(name = "Comptes.findByLogin", query = "SELECT c FROM Comptes c WHERE c.login = :login"),
-    @NamedQuery(name = "Comptes.findByPwd", query = "SELECT c FROM Comptes c WHERE c.pwd = :pwd")})
+    @NamedQuery(name = "Comptes.findByPwd", query = "SELECT c FROM Comptes c WHERE c.pwd = :pwd"),
+    @NamedQuery(name = "Comptes.findByType", query = "SELECT c FROM Comptes c WHERE c.type = :type"),
+    @NamedQuery(name = "Comptes.findIdByLogin", query = "SELECT c.idCompte FROM Comptes c WHERE c.login = :login"),
+    @NamedQuery(name = "Comptes.findTypeById", query = "SELECT c.type FROM Comptes c WHERE c.idCompte = :idCompte")})
 public class Comptes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,12 +46,9 @@ public class Comptes implements Serializable {
     @Size(max = 254)
     @Column(name = "pwd")
     private String pwd;
-    @OneToMany(mappedBy = "idCompte")
-    private Collection<Reparateurs> reparateursCollection;
-    @OneToMany(mappedBy = "idCompte")
-    private Collection<Vendeurs> vendeursCollection;
-    @OneToMany(mappedBy = "idCompte")
-    private Collection<Clients> clientsCollection;
+    @Size(max = 45)
+    @Column(name = "type")
+    private String type;
 
     public Comptes() {
     }
@@ -84,31 +81,12 @@ public class Comptes implements Serializable {
         this.pwd = pwd;
     }
 
-    @XmlTransient
-    public Collection<Reparateurs> getReparateursCollection() {
-        return reparateursCollection;
+    public String getType() {
+        return type;
     }
 
-    public void setReparateursCollection(Collection<Reparateurs> reparateursCollection) {
-        this.reparateursCollection = reparateursCollection;
-    }
-
-    @XmlTransient
-    public Collection<Vendeurs> getVendeursCollection() {
-        return vendeursCollection;
-    }
-
-    public void setVendeursCollection(Collection<Vendeurs> vendeursCollection) {
-        this.vendeursCollection = vendeursCollection;
-    }
-
-    @XmlTransient
-    public Collection<Clients> getClientsCollection() {
-        return clientsCollection;
-    }
-
-    public void setClientsCollection(Collection<Clients> clientsCollection) {
-        this.clientsCollection = clientsCollection;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

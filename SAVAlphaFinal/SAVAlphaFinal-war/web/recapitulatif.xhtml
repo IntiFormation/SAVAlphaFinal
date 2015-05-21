@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Récapitulatif</title>
+    </h:head>
+    <h:body>
+
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" style="min-height: 80px">
+                <ui:insert name="header">
+                    <ui:include src="/template/header.xhtml"/>
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" style="text-align: center">
+                <br/>
+                <h:form>
+                    <h2>Récapitulatif</h2>
+                    <br/>
+                    <h:outputLabel value="Categorie du produit : "/>
+                    <br/>
+                    <br/>
+                    <h:outputLabel value="Marque du produit : "/>
+                    <br/>
+                    <br/>
+                    <h:outputLabel value="Modèle du poduit : "/>
+                    <br/>
+                    <br/>
+                    <h:outputLabel value="Forfait : "/>
+                    <br/>
+                    <br/>
+                    <h:outputLabel value="Adresse : "/>
+                    <br/>
+                    <br/>
+                    <h:outputLabel value="Somme payée : "/>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" minSize="500">
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+                    <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+                </p:dialog>
+
+                <h:form style="text-align: center">
+                    <h2>Documents téléchargeables</h2>
+                    <br/>
+                    <p:commandButton value="Bon d'envoi du colis" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="" />
+                    </p:commandButton>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p:commandButton value="Bon de retour du colis" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="" />
+                    </p:commandButton>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p:commandButton value="Fiche de réparation" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="" />
+                    </p:commandButton>
+                </h:form>
+
+                <script type="text/javascript">
+                    function start() {
+                        PF('statusDialog').show();
+                    }
+
+                    function stop() {
+                        PF('statusDialog').hide();
+                    }
+                </script>
+            </p:layoutUnit>
+        </p:layout>
+
+    </h:body>
+</html>
+

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Accueil</title>
+    </h:head>
+    <h:body>
+        <h:form>
+
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" style="min-height: 70px">
+                    <ui:insert name="header">
+                        <c:choose>
+                            <c:when test="${empty isLogged}">
+                                <ui:include src="/template/header.xhtml"/>
+                            </c:when>
+                            <c:otherwise>
+                                <ui:include src="/template/headerco.xhtml"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </ui:insert>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" minSize="350">
+                    <p:panel>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Categorie : " />
+                            <p:selectOneMenu var="cat" value="#{gestionProduitHome.categorie}" style="width:150px">
+                                <p:ajax listener="#{gestionProduitHome.onCategorieChange()}" update="mar"/>
+                                <f:selectItem itemLabel="Choisir categorie" itemValue=""/>
+                                <f:selectItems value="#{gestionProduitHome.categories}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Marque : " />
+                            <p:selectOneMenu id="mar" var="mar" value="marque" style="width:150px" disabled="false">
+                                             <f:selectItem itemLabel="Choisir marque" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{gestionProduitHome.marques}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel id="mod" value="Model : " />
+                            <p:selectOneMenu style="width:150px">
+                                <f:selectItem itemLabel="Choisir modele" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{gestionProduitHome.modeles}"/>
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <p:dataTable var="item" value="#{gestionProduitHome.prod}">
+                        <p:column headerText="Categorie">
+                            <h:outputText value="#{item.categorie}" />
+                        </p:column>
+
+                        <p:column headerText="Marque">
+                            <h:outputText value="#{item.marque}" />
+                        </p:column>
+
+                        <p:column headerText="Modele">
+                            <h:outputText value="#{item.modele}" />
+                        </p:column>
+
+                        <p:column headerText="Forfait">
+                            <h:outputText value="#{item.categorie}" />
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:commandButton value="Valider" style="float: right"/>
+                    <p:commandButton value="Reinitialiser" style="float: right"/>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:form>
+
+    </h:body>
+</html>
+

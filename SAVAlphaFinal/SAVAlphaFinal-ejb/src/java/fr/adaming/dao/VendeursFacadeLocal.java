@@ -6,6 +6,7 @@
 package fr.adaming.dao;
 
 import fr.adaming.models.Adresses;
+import fr.adaming.models.Comptes;
 import fr.adaming.models.Garanties;
 import fr.adaming.models.Vendeurs;
 import java.util.Collection;
@@ -38,5 +39,7 @@ public interface VendeursFacadeLocal {
     public Collection<Garanties> findGarantiesByVendeur(Integer idVendeur);
     
     Adresses findAdresseByVendeur(Integer idVendeur);
+    
+    Vendeurs findByIdCompte(Comptes idCompte);
     
 }

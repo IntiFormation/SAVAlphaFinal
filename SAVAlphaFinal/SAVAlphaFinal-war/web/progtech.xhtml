@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Programme technicien</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" style="min-height: 70px">
+                    <ui:insert name="header">
+                        <ui:include src="/template/headerco.xhtml"/>
+                    </ui:insert>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <p:dataTable>
+                        <p:column headerText="Numero facture">
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
+
+                        <p:column headerText="Colis reçu">
+                            <p:selectBooleanCheckbox/>
+                        </p:column>
+
+                        <p:column headerText="Devis effectué">
+                            <p:selectBooleanCheckbox/>
+                        </p:column>
+
+                        <p:column headerText="Note payé">
+                            <h:outputText value="#{car.color}" />
+                        </p:column>
+                        
+                        <p:column headerText="Réparation effectué">
+                            <p:selectBooleanCheckbox/>
+                        </p:column>
+                        
+                        <p:column headerText="Colis envoyé">
+                            <p:selectBooleanCheckbox/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="south" minSize="250">
+                    <p:dataTable>
+                        <p:column headerText="Numero facture du client">
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
+
+                        <p:column headerText="Nom">
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
+
+                        <p:column headerText="Prenom">
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
+
+                        <p:column headerText="Adresse">
+                            <h:outputText value="#{car.id}" />
+                        </p:column>
+                        
+                        <p:column headerText="Payé">
+                            <p:selectBooleanCheckbox/>
+                        </p:column>
+                        
+                        <p:column headerText="Supprimer">
+                            <p:commandButton value="Supprimer"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </p:layoutUnit>
+            </p:layout>
+        </h:form>
+    </h:body>
+</html>
+

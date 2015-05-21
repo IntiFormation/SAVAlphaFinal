@@ -7,8 +7,10 @@ package fr.adaming.dao;
 
 import fr.adaming.models.Achats;
 import fr.adaming.models.Clients;
+import fr.adaming.models.Comptes;
 import fr.adaming.models.Garanties;
 import fr.adaming.models.Produits;
+import fr.adaming.models.Vendeurs;
 import java.util.Collection;
 import java.util.LinkedList;
 import javax.ejb.Stateless;
@@ -56,6 +58,13 @@ public class ClientsFacade extends AbstractFacade<Clients> implements ClientsFac
             garanties.add(garantie.find(a.getIdClient()));
         }
         return garanties;
+    }
+    
+    @Override
+    public Clients findByIdCompte(Comptes idCompte) {
+        Query query = em.createNamedQuery("Clients.findByIdCompte");
+        query.setParameter("idCompte", idCompte);
+        return (Clients) query.getSingleResult();
     }
     
 }

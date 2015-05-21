@@ -5,13 +5,11 @@
  */
 package fr.adaming.dao;
 
-import fr.adaming.models.Achats;
 import fr.adaming.models.Adresses;
+import fr.adaming.models.Comptes;
 import fr.adaming.models.Garanties;
 import fr.adaming.models.Vendeurs;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -50,6 +48,13 @@ public class VendeursFacade extends AbstractFacade<Vendeurs> implements Vendeurs
     public Adresses findAdresseByVendeur(Integer idVendeur) {
         
         return this.find(idVendeur).getIdAdresse();
+    }
+
+    @Override
+    public Vendeurs findByIdCompte(Comptes idCompte) {
+        Query query = em.createNamedQuery("Vendeurs.findByIdCompte");
+        query.setParameter("idCompte", idCompte);
+        return (Vendeurs) query.getSingleResult();
     }
     
 }

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Paiement</title>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+
+            <p:layoutUnit position="north" style="text-align: center">
+                <h1> Paiement </h1>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" minSize="500" style="text-align: center">
+                <br/>
+                <h:form>
+                    <h2>Informations à saisir</h2>
+                    <br/>
+                    <p:inputText id="nom" placeholder="Nom du titulaire"/>
+                    <br/>
+                    <br/>
+                    <p:inputText id="numCarte" placeholder="Numéro de carte"/>
+                    <br/>
+                    <br/>
+                    <p:inputText id="mois" placeholder="MM" maxlength="2" size="5"/>
+                    <p:inputText id="annee" placeholder="AAAA" maxlength="4" size="5"/>
+                    <br/>
+                    <br/>
+                    <p:inputText id="cryptogramme" placeholder="Cryptogramme"/>
+                    <br/>
+                    <br/>
+                    <p:commandButton value="Valider" id="validate"/>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" style="text-align: center">
+                <h2>Facture</h2>
+                <br/>
+                <h:outputLabel value="Categorie du produit : "/>
+                <br/>
+                <br/>
+                <h:outputLabel value="Marque du produit : "/>
+                <br/>
+                <br/>
+                <h:outputLabel value="Modèle du poduit : "/>
+                <br/>
+                <br/>
+                <h:outputLabel value="Forfait : "/>
+                <br/>
+                <br/>
+                <h:outputLabel value="Description de la panne : "/>
+                <br/>
+                <br/>
+                <h:outputText value="Coût total : "/>
+            </p:layoutUnit>
+
+        </p:layout>
+    </h:body>
+</html>
+

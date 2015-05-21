@@ -49,4 +49,6 @@ public interface ProduitsFacadeLocal {
     
     public Collection<Pannes> findPannesByProduit(String idProduit);
     
+    List<String> findModelesByMarqueAndCategorie(String marque, String categorie);
+    
 }

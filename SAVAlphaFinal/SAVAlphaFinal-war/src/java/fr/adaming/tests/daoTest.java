@@ -37,15 +37,7 @@ public class daoTest implements Serializable {
     public daoTest() {
     }
 
-    public void appTest() {
-        try {
-            Collection<Garanties> tmp = produitsTest.findGarantiesByProduit(3);
-            setGaranties(tmp);
-        } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
-        }
-
-    }
+    
     
     public Collection<Garanties> getGaranties() {
         return garanties;
